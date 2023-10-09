@@ -47,7 +47,7 @@
 		<dct:title xml:lang="en">Model of Assets in Knowledge Lake Management System (KLMS)</dct:title>
         <rdfs:comment>Ontology of assets (datasets, workflows, users) in Knowledge Lake Management System (KLMS).</rdfs:comment>
 		<dct:created rdf:datatype="xsd:date">2023-03-01</dct:created>
-		<dct:modified rdf:datatype="xsd:date">2023-10-05</dct:modified>
+		<dct:modified rdf:datatype="xsd:date">2023-10-09</dct:modified>
         <dct:abstract xml:lang="en">This model is used for describing assets in Knowledge Lake Management System (KLMS) based on the Data Catalogue vocabulary (DCAT).</dct:abstract>
         <cc:attributionName xml:lang="en">STELAR project</cc:attributionName>
 		<vann:preferredNamespacePrefix>klms</vann:preferredNamespacePrefix>
