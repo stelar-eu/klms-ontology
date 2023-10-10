@@ -178,9 +178,8 @@
 
 
 
-    
-
-    
+  
+      
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
@@ -199,11 +198,11 @@
     </div>
     <div id="navbar" class="collapse navbar-collapse">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="index.html"><code style="font-size: 115%;">Data Profiling Vocabulary</code></a></li>
+        <li ><a href="index.html"><code style="font-size: 115%;">Data Profiling Vocabulary</code></a></li>
 
         <li  ><a href="entities-az.html">Entities A-Z</a></li>
         
-        <li ><a href="entities-tree-classes.html">Classes</a></li>
+        <li class="active"><a href="entities-tree-classes.html">Classes</a></li>
         
         
         <li ><a href="entities-tree-properties.html">Properties</a></li>
@@ -223,8 +222,7 @@
 
   </div>
 </nav>
-
-    
+  
 
 
 
@@ -251,7 +249,7 @@
         </li>
 
         
-          <li class="-second-level" id="sd_classes"><a href="entities-tree-classes.html">Classes (45)</a>
+          <li class="-second-level" id="sd_classes"><a class="active"href="entities-tree-classes.html">Classes (45)</a>
           </li>
 
             
@@ -637,14 +635,37 @@
 	
 
 
+
     
         
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <ol class="breadcrumb">
-  <li class="active">
-    Home
+  <li>
+    <a href="index.html">Home</a>
   </li>
+  <li>
+        <a href="entities-az.html">Entities</a>
+    </li>
+    <li class="active">
+          Classes
+      </li>
 </ol>
 
 
@@ -690,632 +711,166 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     
 
 
 
-        <div class="page-header">
 
-            <h3>Home
+  <div class="page-header">
+
+      <h3>Classes Tree
+      </h3>
+      <input id="search-input" type="text" class="form-control" placeholder="Filter...">
+
+  </div>
+
+
+
+     <div class="row"><div class="col-md-12">
+        <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Tree</h3>
+      </div>
+      <div class="panel-body entities-list">
+
+          <table class="h"><tr>
+							<td class="tc" colspan=4><a title="http://www.w3.org/ns/dcat#Dataset" class="treelinks" href="class-dcatdataset.html">dcat:Dataset</a></td>
+						  </tr> <tr>
+							<td class="space"></td>
+							<td class="bar"></td>
+							<td class="space"></td>
+							<td><table class="h"><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#Dataset" class="treelinks" href="class-klmsdataset.html">klms:Dataset</a></td>
+						  </tr></table></td>
+							</tr><tr>
+							<td class="tc" colspan=4><a title="http://www.w3.org/ns/dcat#Distribution" class="treelinks" href="class-dcatdistribution.html">dcat:Distribution</a></td>
+						  </tr> <tr>
+							<td class="space"></td>
+							<td class="bar"></td>
+							<td class="space"></td>
+							<td><table class="h"><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#Distribution" class="treelinks" href="class-klmsdistribution.html">klms:Distribution</a></td>
+						  </tr> <tr>
+							<td class="space"></td>
+							<td class="bar"></td>
+							<td class="space"></td>
+							<td><table class="h"><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#Hierarchical" class="treelinks" href="class-klmshierarchical.html">klms:Hierarchical</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#RDFGraph" class="treelinks" href="class-klmsrdfgraph.html">klms:RDFGraph</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#Raster" class="treelinks" href="class-klmsraster.html">klms:Raster</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#Tabular" class="treelinks" href="class-klmstabular.html">klms:Tabular</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#Text" class="treelinks" href="class-klmstext.html">klms:Text</a></td>
+						  </tr></table></td>
+							</tr></table></td>
+							</tr><tr>
+							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/Frequency" class="treelinks" href="class-dctermsfrequency.html">dcterms:Frequency</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/LinguisticSystem" class="treelinks" href="class-dctermslinguisticsystem.html">dcterms:LinguisticSystem</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/Location" class="treelinks" href="class-dctermslocation.html">dcterms:Location</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/MediaType" class="treelinks" href="class-dctermsmediatype.html">dcterms:MediaType</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/MediaTypeOrExtent" class="treelinks" href="class-dctermsmediatypeorextent.html">dcterms:MediaTypeOrExtent</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/PeriodOfTime" class="treelinks" href="class-dctermsperiodoftime.html">dcterms:PeriodOfTime</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/RightsStatement" class="treelinks" href="class-dctermsrightsstatement.html">dcterms:RightsStatement</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://purl.org/dc/terms/Standard" class="treelinks" href="class-dctermsstandard.html">dcterms:Standard</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://xmlns.com/foaf/0.1/#term_Organization" class="treelinks" href="class-foafterm_organization.html">foaf:#term_Organization</a></td>
+						  </tr> <tr>
+							<td class="space"></td>
+							<td class="bar"></td>
+							<td class="space"></td>
+							<td><table class="h"><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#Organization" class="treelinks" href="class-klmsorganization.html">klms:Organization</a></td>
+						  </tr></table></td>
+							</tr><tr>
+							<td class="tc" colspan=4><a title="http://xmlns.com/foaf/0.1/#term_Person" class="treelinks" href="class-foafterm_person.html">foaf:#term_Person</a></td>
+						  </tr> <tr>
+							<td class="space"></td>
+							<td class="bar"></td>
+							<td class="space"></td>
+							<td><table class="h"><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#User" class="treelinks" href="class-klmsuser.html">klms:User</a></td>
+						  </tr></table></td>
+							</tr><tr>
+							<td class="tc" colspan=4><a title="http://xmlns.com/foaf/0.1/Document" class="treelinks" href="class-foafdocument.html">foaf:Document</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://xmlns.com/foaf/0.1/Image" class="treelinks" href="class-foafimage.html">foaf:Image</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://xmlns.com/foaf/0.1/Organization" class="treelinks" href="class-foaforganization.html">foaf:Organization</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/www.w3.org/2000/01/rdf-schema#Resource" class="treelinks" href="class-httpstelar-projecteuwwww3org200001rdf-schemaresource.html">...-project.eu/www.w3.org/2000/01/rdf-schema#Resource</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#AccessRightsEnum" class="treelinks" href="class-klmsaccessrightsenum.html">klms:AccessRightsEnum</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#Attribute" class="treelinks" href="class-klmsattribute.html">klms:Attribute</a></td>
+						  </tr> <tr>
+							<td class="space"></td>
+							<td class="bar"></td>
+							<td class="space"></td>
+							<td><table class="h"><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#CategoricalAttribute" class="treelinks" href="class-klmscategoricalattribute.html">klms:CategoricalAttribute</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#NumericalAttribute" class="treelinks" href="class-klmsnumericalattribute.html">klms:NumericalAttribute</a></td>
+						  </tr> <tr>
+							<td class="space"></td>
+							<td class="bar"></td>
+							<td class="space"></td>
+							<td><table class="h"><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#SeriesAttribute" class="treelinks" href="class-klmsseriesattribute.html">klms:SeriesAttribute</a></td>
+						  </tr></table></td>
+							</tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#SpatialAttribute" class="treelinks" href="class-klmsspatialattribute.html">klms:SpatialAttribute</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#TemporalAttribute" class="treelinks" href="class-klmstemporalattribute.html">klms:TemporalAttribute</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#TextualAttribute" class="treelinks" href="class-klmstextualattribute.html">klms:TextualAttribute</a></td>
+						  </tr></table></td>
+							</tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#CategoricalDistribution" class="treelinks" href="class-klmscategoricaldistribution.html">klms:CategoricalDistribution</a></td>
+						  </tr> <tr>
+							<td class="space"></td>
+							<td class="bar"></td>
+							<td class="space"></td>
+							<td><table class="h"><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#Category" class="treelinks" href="class-klmscategory.html">klms:Category</a></td>
+						  </tr></table></td>
+							</tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#KeyValuePair" class="treelinks" href="class-klmskeyvaluepair.html">klms:KeyValuePair</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#NumericalDistribution" class="treelinks" href="class-klmsnumericaldistribution.html">klms:NumericalDistribution</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#Task" class="treelinks" href="class-klmstask.html">klms:Task</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#TaskExecution" class="treelinks" href="class-klmstaskexecution.html">klms:TaskExecution</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#UserRolesEnum" class="treelinks" href="class-klmsuserrolesenum.html">klms:UserRolesEnum</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#Workflow" class="treelinks" href="class-klmsworkflow.html">klms:Workflow</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://stelar-project.eu/klms#WorkflowExecution" class="treelinks" href="class-klmsworkflowexecution.html">klms:WorkflowExecution</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://www.w3.org/ns/org#Membership" class="treelinks" href="class-orgmembership.html">org:Membership</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://www.w3.org/ns/org#Role" class="treelinks" href="class-orgrole.html">org:Role</a></td>
+						  </tr><tr>
+							<td class="tc" colspan=4><a title="http://www.w3.org/2006/vcard/ns#Kind" class="treelinks" href="class-vcardkind.html">vcard:Kind</a></td>
+						  </tr></table>
 
-            </h3>
-
-        </div>
-
-
-
-
-      <div class="row">
-
-        
-        <div class="col-md-6">
-
-           
-
-           
-
-           <div class="row"><div class="col-md-12">
-              <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Ontology Metadata</h3>
-            </div>
-            <div class="panel-body">
-              
-              <dl>
-                <dt>URI</dt>
-                <dd><code>http://stelar-project.eu/klms</code></dd>
-              </dl>
-                
-                    <dl>
-                      
-                          
-                                <dt>foaf:homepage</dt>
-                              
-                          
-                    <dd><p>https://www.imsi.athenarc.gr/</p></dd>
-                    
-                          
-                                <dt>foaf:name</dt>
-                              
-                          
-                    <dd><p>IMSI, Athena Research Center</p></dd>
-                    
-                          
-                                <dt>foaf:homepage</dt>
-                              
-                          
-                    <dd><p>https://www.linkedin.com/in/georgios-chatzigeorgakidis-58862759/</p></dd>
-                    
-                          
-                                <dt>foaf:name</dt>
-                              
-                          
-                    <dd><p>Georgios Chatzigeorgakidis</p></dd>
-                    
-                          
-                                <dt>rdfs:seeAlso</dt>
-                              
-                          
-                    <dd><p>https://www.imsi.athenarc.gr/en/people/member/88</p></dd>
-                    
-                          
-                                <dt>schema1:affiliation</dt>
-                              
-                          
-                    <dd><p>Nf04cba23a96d4d39a409a3c70b07dabd</p></dd>
-                    
-                          
-                                <dt>foaf:homepage</dt>
-                              
-                          
-                    <dd><p>https://www.imsi.athenarc.gr/</p></dd>
-                    
-                          
-                                <dt>foaf:name</dt>
-                              
-                          
-                    <dd><p>IMSI, Athena Research Center</p></dd>
-                    
-                          
-                                <dt>foaf:homepage</dt>
-                              
-                          
-                    <dd><p>http://web.imis.athena-innovation.gr/~dskoutas/</p></dd>
-                    
-                          
-                                <dt>foaf:name</dt>
-                              
-                          
-                    <dd><p>Dimitrios Skoutas</p></dd>
-                    
-                          
-                                <dt>rdfs:seeAlso</dt>
-                              
-                          
-                    <dd><p>http://web.imis.athena-innovation.gr/~dskoutas/</p></dd>
-                    
-                          
-                                <dt>schema1:affiliation</dt>
-                              
-                          
-                    <dd><p>N61ede4a9d3ad48ab9fe54d54cfa64aba</p></dd>
-                    
-                          
-                                <dt>foaf:homepage</dt>
-                              
-                          
-                    <dd><p>https://www.imsi.athenarc.gr/</p></dd>
-                    
-                          
-                                <dt>foaf:name</dt>
-                              
-                          
-                    <dd><p>IMSI, Athena Research Center</p></dd>
-                    
-                          
-                                <dt>foaf:homepage</dt>
-                              
-                          
-                    <dd><p>https://www.imsi.athenarc.gr/en/people/member/132</p></dd>
-                    
-                          
-                                <dt>foaf:name</dt>
-                              
-                          
-                    <dd><p>Panos Bethavas</p></dd>
-                    
-                          
-                                <dt>rdfs:seeAlso</dt>
-                              
-                          
-                    <dd><p>https://www.imsi.athenarc.gr/en/people/member/132</p></dd>
-                    
-                          
-                                <dt>schema1:affiliation</dt>
-                              
-                          
-                    <dd><p>N665d5e5b58114c2baa607b72e442458f</p></dd>
-                    
-                          
-                                <dt>foaf:homepage</dt>
-                              
-                          
-                    <dd><p>https://www.imsi.athenarc.gr/</p></dd>
-                    
-                          
-                                <dt>foaf:name</dt>
-                              
-                          
-                    <dd><p>IMSI, Athena Research Center</p></dd>
-                    
-                          
-                                <dt>foaf:homepage</dt>
-                              
-                          
-                    <dd><p>https://www.imsi.athenarc.gr/en/people/member/130</p></dd>
-                    
-                          
-                                <dt>foaf:name</dt>
-                              
-                          
-                    <dd><p>Alexandros Zeakis</p></dd>
-                    
-                          
-                                <dt>rdfs:seeAlso</dt>
-                              
-                          
-                    <dd><p>https://www.imsi.athenarc.gr/en/people/member/130</p></dd>
-                    
-                          
-                                <dt>schema1:affiliation</dt>
-                              
-                          
-                    <dd><p>N3945c1a07ca046ec8597b529d4a98ded</p></dd>
-                    
-                          
-                                <dt>foaf:homepage</dt>
-                              
-                          
-                    <dd><p>https://www.imsi.athenarc.gr/</p></dd>
-                    
-                          
-                                <dt>foaf:name</dt>
-                              
-                          
-                    <dd><p>IMSI, Athena Research Center</p></dd>
-                    
-                          
-                                <dt>foaf:homepage</dt>
-                              
-                          
-                    <dd><p>https://www.imsi.athenarc.gr/en/people/member/76</p></dd>
-                    
-                          
-                                <dt>foaf:name</dt>
-                              
-                          
-                    <dd><p>Kostas Patroumpas</p></dd>
-                    
-                          
-                                <dt>rdfs:seeAlso</dt>
-                              
-                          
-                    <dd><p>https://www.imsi.athenarc.gr/en/people/member/76</p></dd>
-                    
-                          
-                                <dt>schema1:affiliation</dt>
-                              
-                          
-                    <dd><p>N132c9f7e150a4a51858ece07b65633e5</p></dd>
-                    
-                          
-                                <dt>cc:attributionName</dt>
-                              
-                          
-                    <dd><p>STELAR project</p></dd>
-                    
-                          
-                                <dt>dcterms:abstract</dt>
-                              
-                          
-                    <dd><p>This model is used for describing assets in Knowledge Lake Management System (KLMS) based on the Data Catalogue vocabulary (DCAT).</p></dd>
-                    
-                          
-                                <dt>dcterms:created</dt>
-                              
-                          
-                    <dd><p>2023-03-01</p></dd>
-                    
-                          
-                                <dt>dcterms:creator</dt>
-                              
-                          
-                    <dd><p>N32bc50de3c794b9f98593c042f0357c9</p></dd>
-                    
-                          
-                                <dt>dcterms:creator</dt>
-                              
-                          
-                    <dd><p>N3c440df96cd64b7d9e288cc8a53d8750</p></dd>
-                    
-                          
-                                <dt>dcterms:creator</dt>
-                              
-                          
-                    <dd><p>N6475d1d88e174667872c738e90c90bff</p></dd>
-                    
-                          
-                                <dt>dcterms:creator</dt>
-                              
-                          
-                    <dd><p>N97a16c4a6f6f406f9397334852b13166</p></dd>
-                    
-                          
-                                <dt>dcterms:creator</dt>
-                              
-                          
-                    <dd><p>Nf9b73988d75f4785a6d2089c62e3cabc</p></dd>
-                    
-                          
-                                <dt>dcterms:license</dt>
-                              
-                          
-                    <dd><p>https://www.apache.org/licenses/LICENSE-2.0</p></dd>
-                    
-                          
-                                <dt>dcterms:modified</dt>
-                              
-                          
-                    <dd><p>2023-10-09</p></dd>
-                    
-                          
-                                <dt>dcterms:title</dt>
-                              
-                          
-                    <dd><p>Model of Assets in Knowledge Lake Management System (KLMS)</p></dd>
-                    
-                          
-                                <dt>owl:imports</dt>
-                              
-                          
-                    <dd><p>https://www.w3.org/ns/dcat</p></dd>
-                    
-                          
-                                <dt>owl:versionInfo</dt>
-                              
-                          
-                    <dd><p>0.1</p></dd>
-                    
-                          
-                                <dt>rdf:type</dt>
-                              
-                          
-                    <dd><p>http://www.w3.org/2002/07/owl#Ontology</p></dd>
-                    
-                          
-                                <dt>rdfs:comment</dt>
-                              
-                          
-                    <dd><p>Ontology of assets (datasets, workflows, users) in Knowledge Lake Management System (KLMS).</p></dd>
-                    
-                          
-                                <dt>rdfs:label</dt>
-                              
-                          
-                    <dd><p>KLMS model</p></dd>
-                    
-                          
-                                <dt>vann:preferredNamespacePrefix</dt>
-                              
-                          
-                    <dd><p>klms</p></dd>
-                    
-                          
-                                <dt>vann:preferredNamespaceUri</dt>
-                              
-                          
-                    <dd><p>http://stelar-project.eu/klms#</p></dd>
-                    
-                    </dl>
-                
-
-
-            </div>
-          </div>
-           </div></div>
-           
-        
-
-
-           <div class="row"><div class="col-md-12">
-              <div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Metrics</h3>
-            </div>
-            <div class="panel-body">
-                <dl>
-
-                 
-
-                  
-
-                      <dt>Ontologies</dt>
-                      <dd>1</dd>
-
-                  
-
-                    
-
-                  
-
-                      <dt>Triples</dt>
-                      <dd>1264</dd>
-
-                  
-
-                    
-
-                  
-
-                      <dt>Classes</dt>
-                      <dd>45</dd>
-
-                  
-
-                    
-
-                  
-
-                      <dt>Properties</dt>
-                      <dd>124</dd>
-
-                  
-
-                    
-
-                  
-
-                      <dt>Annotation Properties</dt>
-                      <dd>1</dd>
-
-                  
-
-                    
-
-                  
-
-                      <dt>Object Properties</dt>
-                      <dd>48</dd>
-
-                  
-
-                    
-
-                  
-
-                      <dt>Datatype Properties</dt>
-                      <dd>75</dd>
-
-                  
-
-                    
-
-                  
-
-                      <dt>Skos Concepts</dt>
-                      <dd>0</dd>
-
-                  
-
-                    
-
-                  
-
-                      <dt>Data Shapes</dt>
-                      <dd>0</dd>
-
-                  
-
-                    
-
-                  
-
-                    
-
-                </dl>
-            </div>
-          </div>
-           </div></div>
-
-
-
-
-        </div>
-         
-
-
-        
-        <div class="col-md-6">
-
-
-          
-            <div class="row">
-              <div class="col-md-12">
-                <div class="panel panel-default">
-              <div class="panel-heading">
-                <h3 class="panel-title">Namespaces</h3>
-              </div>
-              <div class="panel-body" style="overflow: auto;">
-                 <dl class="-dl-horizontal" style="--margin-left: -100px;">
-
-                 
-                     <dt><span class="label label-info"></span></dt>
-                     <dd><a href="http://stelar-project.eu/klms#" target="_blank">http://stelar-project.eu/klms#</a></dd>
-
-                 
-                     <dt><span class="label label-info">brick</span></dt>
-                     <dd><a href="https://brickschema.org/schema/Brick#" target="_blank">https://brickschema.org/schema/Brick#</a></dd>
-
-                 
-                     <dt><span class="label label-info">cc</span></dt>
-                     <dd><a href="http://creativecommons.org/ns#" target="_blank">http://creativecommons.org/ns#</a></dd>
-
-                 
-                     <dt><span class="label label-info">csvw</span></dt>
-                     <dd><a href="http://www.w3.org/ns/csvw#" target="_blank">http://www.w3.org/ns/csvw#</a></dd>
-
-                 
-                     <dt><span class="label label-info">dc</span></dt>
-                     <dd><a href="http://purl.org/dc/elements/1.1/" target="_blank">http://purl.org/dc/elements/1.1/</a></dd>
-
-                 
-                     <dt><span class="label label-info">dcam</span></dt>
-                     <dd><a href="http://purl.org/dc/dcam/" target="_blank">http://purl.org/dc/dcam/</a></dd>
-
-                 
-                     <dt><span class="label label-info">dcat</span></dt>
-                     <dd><a href="http://www.w3.org/ns/dcat#" target="_blank">http://www.w3.org/ns/dcat#</a></dd>
-
-                 
-                     <dt><span class="label label-info">dcmitype</span></dt>
-                     <dd><a href="http://purl.org/dc/dcmitype/" target="_blank">http://purl.org/dc/dcmitype/</a></dd>
-
-                 
-                     <dt><span class="label label-info">dcterms</span></dt>
-                     <dd><a href="http://purl.org/dc/terms/" target="_blank">http://purl.org/dc/terms/</a></dd>
-
-                 
-                     <dt><span class="label label-info">doap</span></dt>
-                     <dd><a href="http://usefulinc.com/ns/doap#" target="_blank">http://usefulinc.com/ns/doap#</a></dd>
-
-                 
-                     <dt><span class="label label-info">foaf</span></dt>
-                     <dd><a href="http://xmlns.com/foaf/0.1/" target="_blank">http://xmlns.com/foaf/0.1/</a></dd>
-
-                 
-                     <dt><span class="label label-info">geo</span></dt>
-                     <dd><a href="http://www.opengis.net/ont/geosparql#" target="_blank">http://www.opengis.net/ont/geosparql#</a></dd>
-
-                 
-                     <dt><span class="label label-info">klms</span></dt>
-                     <dd><a href="http://stelar-project.eu/klms" target="_blank">http://stelar-project.eu/klms</a></dd>
-
-                 
-                     <dt><span class="label label-info">locn</span></dt>
-                     <dd><a href="http://www.w3.org/ns/locn#" target="_blank">http://www.w3.org/ns/locn#</a></dd>
-
-                 
-                     <dt><span class="label label-info">odrl</span></dt>
-                     <dd><a href="http://www.w3.org/ns/odrl/2/" target="_blank">http://www.w3.org/ns/odrl/2/</a></dd>
-
-                 
-                     <dt><span class="label label-info">org</span></dt>
-                     <dd><a href="http://www.w3.org/ns/org#" target="_blank">http://www.w3.org/ns/org#</a></dd>
-
-                 
-                     <dt><span class="label label-info">owl</span></dt>
-                     <dd><a href="http://www.w3.org/2002/07/owl#" target="_blank">http://www.w3.org/2002/07/owl#</a></dd>
-
-                 
-                     <dt><span class="label label-info">prof</span></dt>
-                     <dd><a href="http://www.w3.org/ns/dx/prof/" target="_blank">http://www.w3.org/ns/dx/prof/</a></dd>
-
-                 
-                     <dt><span class="label label-info">prov</span></dt>
-                     <dd><a href="http://www.w3.org/ns/prov#" target="_blank">http://www.w3.org/ns/prov#</a></dd>
-
-                 
-                     <dt><span class="label label-info">qb</span></dt>
-                     <dd><a href="http://purl.org/linked-data/cube#" target="_blank">http://purl.org/linked-data/cube#</a></dd>
-
-                 
-                     <dt><span class="label label-info">rdf</span></dt>
-                     <dd><a href="http://www.w3.org/1999/02/22-rdf-syntax-ns#" target="_blank">http://www.w3.org/1999/02/22-rdf-syntax-ns#</a></dd>
-
-                 
-                     <dt><span class="label label-info">rdfs</span></dt>
-                     <dd><a href="http://www.w3.org/2000/01/rdf-schema#" target="_blank">http://www.w3.org/2000/01/rdf-schema#</a></dd>
-
-                 
-                     <dt><span class="label label-info">schema</span></dt>
-                     <dd><a href="https://schema.org/" target="_blank">https://schema.org/</a></dd>
-
-                 
-                     <dt><span class="label label-info">schema1</span></dt>
-                     <dd><a href="http://schema.org/" target="_blank">http://schema.org/</a></dd>
-
-                 
-                     <dt><span class="label label-info">sh</span></dt>
-                     <dd><a href="http://www.w3.org/ns/shacl#" target="_blank">http://www.w3.org/ns/shacl#</a></dd>
-
-                 
-                     <dt><span class="label label-info">skos</span></dt>
-                     <dd><a href="http://www.w3.org/2004/02/skos/core#" target="_blank">http://www.w3.org/2004/02/skos/core#</a></dd>
-
-                 
-                     <dt><span class="label label-info">sosa</span></dt>
-                     <dd><a href="http://www.w3.org/ns/sosa/" target="_blank">http://www.w3.org/ns/sosa/</a></dd>
-
-                 
-                     <dt><span class="label label-info">ssn</span></dt>
-                     <dd><a href="http://www.w3.org/ns/ssn/" target="_blank">http://www.w3.org/ns/ssn/</a></dd>
-
-                 
-                     <dt><span class="label label-info">time</span></dt>
-                     <dd><a href="http://www.w3.org/2006/time#" target="_blank">http://www.w3.org/2006/time#</a></dd>
-
-                 
-                     <dt><span class="label label-info">vann</span></dt>
-                     <dd><a href="http://purl.org/vocab/vann/" target="_blank">http://purl.org/vocab/vann/</a></dd>
-
-                 
-                     <dt><span class="label label-info">vcard</span></dt>
-                     <dd><a href="http://www.w3.org/2006/vcard/ns#" target="_blank">http://www.w3.org/2006/vcard/ns#</a></dd>
-
-                 
-                     <dt><span class="label label-info">void</span></dt>
-                     <dd><a href="http://rdfs.org/ns/void#" target="_blank">http://rdfs.org/ns/void#</a></dd>
-
-                 
-                     <dt><span class="label label-info">wgs</span></dt>
-                     <dd><a href="https://www.w3.org/2003/01/geo/wgs84_pos#" target="_blank">https://www.w3.org/2003/01/geo/wgs84_pos#</a></dd>
-
-                 
-                     <dt><span class="label label-info">xml</span></dt>
-                     <dd><a href="http://www.w3.org/XML/1998/namespace" target="_blank">http://www.w3.org/XML/1998/namespace</a></dd>
-
-                 
-                     <dt><span class="label label-info">xsd</span></dt>
-                     <dd><a href="http://www.w3.org/2001/XMLSchema#" target="_blank">http://www.w3.org/2001/XMLSchema#</a></dd>
-
-                 
-
-                </dl>
-              </div>
-            </div>
-              </div>
-            </div>
-            
-        </div>
-         
 
       </div>
+    </div>
+     </div></div>
+
+
 
 
 
@@ -1401,6 +956,39 @@ $('#search-input-sidebar').keyup(function() {
 
 
 
+<script type="text/javascript">
+
+// http://stackoverflow.com/questions/9127498/how-to-perform-a-real-time-search-and-filter-on-a-html-table
+
+  $('#search-input').keyup(function() {
+
+    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+
+    // var $rows = $(this).next(".entities-list").find("div");
+    var $rows = $(this).parent().next().find(".entities-list tr");
+
+    $rows.show().filter(function() {
+        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+        return !~text.indexOf(val);
+    }).hide();
+});
+
+
+</script>
+
+
+
+<!-- Scroll Sidebar Script -->
+
+<script type="text/javascript">
+
+  $(document).ready(function (){
+    $('#sidebar-wrapper').animate({
+        scrollTop: $("#sd_classes").offset().top - 100
+    }, 100);
+  });
+
+</script>
 
 
 
