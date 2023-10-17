@@ -34,6 +34,7 @@
 	 xmlns:prov="http://www.w3.org/ns/prov#"
 	 xmlns:schema="http://schema.org/"
 	 xmlns:vann="http://purl.org/vocab/vann/"
+	 xmlns:adms="http://www.w3.org/ns/adms#"
 	 xmlns:cc="http://creativecommons.org/ns#"
 	 xmlns:time="http://www.w3.org/2006/time#"
 	 xmlns:locn="http://www.w3.org/ns/locn#"
@@ -47,7 +48,7 @@
 		<dct:title xml:lang="en">Model of Assets in Knowledge Lake Management System (KLMS)</dct:title>
         <rdfs:comment>Ontology of assets (datasets, workflows, users) in Knowledge Lake Management System (KLMS).</rdfs:comment>
 		<dct:created rdf:datatype="xsd:date">2023-03-01</dct:created>
-		<dct:modified rdf:datatype="xsd:date">2023-10-09</dct:modified>
+		<dct:modified rdf:datatype="xsd:date">2023-10-17</dct:modified>
         <dct:abstract xml:lang="en">This model is used for describing assets in Knowledge Lake Management System (KLMS) based on the Data Catalogue vocabulary (DCAT).</dct:abstract>
         <cc:attributionName xml:lang="en">STELAR project</cc:attributionName>
 		<vann:preferredNamespacePrefix>klms</vann:preferredNamespacePrefix>
@@ -293,7 +294,7 @@
 	</owl:ObjectProperty>
 
  <!--  User - last active  -->
-	 <owl:DatatypeProperty rdf:about="hhttp://stelar-project.eu/klms#lastActive"> 
+	 <owl:DatatypeProperty rdf:about="http://stelar-project.eu/klms#lastActive"> 
 		  <vann:usageNote xml:lang="en">Recommended property. This property contains the date/time when the User was last logged in the Catalog.</vann:usageNote>
 		  <dct:identifier>klms:lastActive</dct:identifier>
 		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#User"/>
@@ -334,7 +335,7 @@
 
 	
  <!--  Role - specification  -->
-	 <owl:DatatypeProperty rdf:about="hhttp://stelar-project.eu/klms#roleSpecs"> 
+	 <owl:DatatypeProperty rdf:about="http://stelar-project.eu/klms#roleSpecs"> 
 		  <vann:usageNote xml:lang="en">Recommended property. This property contains the specification of a User's role (admin, editor, or member) regarding the Catalog within an Organization.</vann:usageNote>
 		  <dct:identifier>klms:roleSpecs</dct:identifier>
 		  <rdfs:domain rdf:resource="http://www.w3.org/ns/org#Role"/>
@@ -373,7 +374,7 @@
 	 </owl:DatatypeProperty>
  
 <!--  Dataset - title  -->
-	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms#title"> 
+	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/title"> 
 		  <vann:usageNote xml:lang="en">Mandatory property. This property contains a name given to the Dataset. This property can be repeated for parallel language versions of the name.</vann:usageNote>
 		  <dct:identifier>dct:title</dct:identifier>
 		  <rdfs:domain rdf:resource="http://www.w3.org/ns/dcat#Dataset"/>
@@ -769,7 +770,7 @@
 	 </owl:DatatypeProperty>
 	 
 <!--
-	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms#title"> 
+	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/title"> 
 		  <vann:usageNote xml:lang="en">Optional property. The name (title or type) of a class representing a category in a categorical distribution.</vann:usageNote>
 		  <dct:identifier>dct:title</dct:identifier>
 		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#Category"/>
@@ -800,7 +801,7 @@
 		  <dct:identifier>dcat:accessURL</dct:identifier>
 		  <rdfs:label xml:lang="en">Distribution - access URL</rdfs:label>
 		  <rdfs:domain rdf:resource="http://www.w3.org/ns/dcat#Distribution"/>
-		  <rdfs:range rdf:resource="www.w3.org/2000/01/rdf-schema#Resource"/>
+		  <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
 		  <rdfs:isDefinedBy rdf:resource="https://www.w3.org/TR/vocab-dcat-2/#Property:distribution_access_url" />
 		  <rdfs:comment xml:lang="en">This property contains a URL that gives access to a Distribution of the Dataset. The resource at the access URL may contain information about how to get the Dataset.</rdfs:comment>
 	 </owl:DatatypeProperty>
@@ -856,7 +857,7 @@
 		  <vann:usageNote xml:lang="en">Optional property. This property contains a URL that is direct link to a downloadable file in a given format.</vann:usageNote>
 		  <dct:identifier>dcat:downloadURL</dct:identifier>
 		  <rdfs:domain rdf:resource="http://www.w3.org/ns/dcat#Distribution"/>
-		  <rdfs:range rdf:resource="www.w3.org/2000/01/rdf-schema#Resource"/>
+		  <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Resource"/>
 		  <rdfs:label xml:lang="en">Distribution - download URL</rdfs:label>
 		  <rdfs:isDefinedBy rdf:resource="https://www.w3.org/TR/vocab-dcat-2/#Property:distribution_download_url" />
 		  <rdfs:comment xml:lang="en">This property contains a URL that is direct link to a downloadable file in a given format.</rdfs:comment>
@@ -1989,7 +1990,7 @@
 	 </owl:DatatypeProperty>
  
 <!--  Workflow - title  -->
-	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms#title"> 
+	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/title"> 
 		  <vann:usageNote xml:lang="en">Recommended property. This property contains a name given to the Workflow.</vann:usageNote>
 		  <dct:identifier>dct:title</dct:identifier>
 		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#Workflow"/>
@@ -2070,7 +2071,7 @@
 	 </rdf:ObjectProperty>
 	 
 <!--  Task - title  -->
-	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms#title"> 
+	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/title"> 
 		  <vann:usageNote xml:lang="en">Recommended property. This property contains a name given to the Task.</vann:usageNote>
 		  <dct:identifier>dct:title</dct:identifier>
 		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#Task"/>
