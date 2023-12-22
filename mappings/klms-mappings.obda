@@ -1,0 +1,282 @@
+[PrefixDeclaration]
+rdf:		http://www.w3.org/1999/02/22-rdf-syntax-ns#
+rdfs:		http://www.w3.org/2000/01/rdf-schema#
+owl:		http://www.w3.org/2002/07/owl#
+xsd:		http://www.w3.org/2001/XMLSchema#
+obda:		https://w3id.org/obda/vocabulary#
+klms:           http://stelar-project.eu/klms#
+foaf:           http://xmlns.com/foaf/0.1/
+dcat:           http://www.w3.org/ns/dcat#
+dct:            http://purl.org/dc/terms/
+iana:           https://www.iana.org/assignments/media-types/application/
+geo:            http://www.opengis.net/ont/geosparql#
+locn:           http://www.w3.org/ns/locn#
+vcard:          http://www.w3.org/2006/vcard/ns#
+adms:           http://www.w3.org/ns/adms#
+org:            http://www.w3.org/ns/org#
+inspire:        http://inspire.ec.europa.eu/metadata-codelist/TopicCategory/
+
+[MappingDeclaration] @collection [[
+
+
+mappingId       Organization-basic
+target          klms:organization/{id} a klms:Organization ; a foaf:Organization ; foaf:name {title}^^xsd:string ; dct:description {description}^^xsd:string ; dct:created {created}^^xsd:dateTime; foaf:logo {image_url}^^xsd:anyURI .
+source          SELECT id, title, description, created, image_url FROM public.group WHERE state='active' AND is_organization='true'
+
+mappingId       Organization-homepage
+target          klms:organization/{group_id} foaf:homepage {value}^^xsd:anyURI .
+source          SELECT e.group_id, e.value FROM public.group g, public.group_extra e WHERE g.id=e.group_id AND e.key='homepage' AND g.state='active' AND g.is_organization='true'
+
+mappingId       User-basic
+target          klms:user/{id} a klms:User ; a foaf:Person ; foaf:accountName {name}^^xsd:string ; foaf:name {fullname}^^xsd:string ; dct:created {created}^^xsd:dateTime; foaf:mbox {email}; dct:description {about}^^xsd:string ; foaf:img {image_url}^^xsd:anyURI ; klms:lastActive {last_active}^^xsd:dateTime .
+source          SELECT id, name, fullname, created, about, email, image_url, last_active FROM public.user WHERE state='active'
+
+mappingId       User-membership
+target          klms:membership/{member_id} a org:Membership; org:organization klms:organization/{org_id}; org:member klms:user/{user_id}; org:role klms:role/{user_role} . klms:role/{user_role} klms:roleSpecs {user_role}^^xsd:string .
+source          SELECT id as member_id, group_id AS org_id, table_id AS user_id, capacity AS user_role FROM member WHERE table_name='user' AND state='active'
+
+
+mappingId       Dataset-basic
+target          klms:dataset/{id} a dcat:Dataset ; dct:identifier {id}^^xsd:string ; dct:title {title}^^xsd:string ; dct:description {notes}^^xsd:string ; owl:versionInfo {version}; dct:type {type}; dct:license {license_id}; dct:creator klms:user/{creator_user_id}; dct:publisher klms:organization/{owner_org}; dcat:landingPage {url} .
+source          SELECT id, title, notes, version, type, license_id, owner_org, creator_user_id, url FROM package WHERE state='active'
+
+mappingId       Dataset-tags
+target          klms:dataset/{package_id} dcat:keyword {tag} .
+source          SELECT r.package_id, t.name AS tag FROM package p, package_tag r, tag t WHERE r.tag_id=t.id AND r.package_id=p.id AND p.state='active'
+
+mappingId       Dataset-theme-list
+target          klms:dataset/{id} dcat:theme {theme}^^xsd:string .
+source          SELECT id, trim(theme::text, '"') AS theme FROM (SELECT p.id, json_array_elements(e.value::json) AS theme FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='theme' AND is_valid_json(e.value) AND p.state='active') a
+
+mappingId       Dataset-alternate-identifier
+target          klms:dataset/{id} adms:identifier {value} .
+source          SELECT p.id, e.value FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='alternate_identifier' AND p.state='active'
+
+mappingId       Dataset-date-issued
+target          klms:dataset/{id} dct:issued {issued}^^xsd:dateTime .
+source          SELECT p.id, (CASE WHEN e.key='issued' THEN e.value ELSE p.metadata_created::text END) AS issued FROM package p, package_extra e WHERE e.package_id=p.id AND p.state='active'
+
+mappingId       Dataset-date-modified
+target          klms:dataset/{id} dct:modified {modified}^^xsd:dateTime .
+source          SELECT p.id, (CASE WHEN e.key='modified' THEN e.value ELSE p.metadata_modified::text END) AS modified FROM package p, package_extra e WHERE e.package_id=p.id AND p.state='active'
+
+mappingId       Dataset-language-list
+target          klms:dataset/{id} dct:language {lang}^^xsd:string .
+source          SELECT id, trim(lang::text, '"') AS lang FROM (SELECT p.id, json_array_elements(e.value::json) AS lang FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='language' AND is_valid_json(e.value) AND p.state='active') a
+
+mappingId       Dataset-frequency
+target          klms:dataset/{id} dct:accrualPeriodicity {value} .
+source          SELECT p.id, e.value FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='frequency' AND p.state='active'
+
+mappingId       Dataset-conforms-to-list
+target          klms:dataset/{id} dct:conformsTo {conform}^^xsd:string .
+source          SELECT id, trim(conform::text, '"') AS conform FROM (SELECT p.id, json_array_elements(e.value::json) AS conform FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='conforms_to' AND is_valid_json(e.value) AND p.state='active') a
+
+mappingId       Dataset-access-rights
+target          klms:dataset/{id} dct:accessRights {access}^^xsd:string .
+source          SELECT p.id, (CASE WHEN e.key='access_rights' THEN e.value WHEN private=true THEN 'private' ELSE 'public' END) AS access FROM package p, package_extra e WHERE e.package_id=p.id AND p.state='active'
+
+mappingId       Dataset-documentation-list
+target          klms:dataset/{id} foaf:page {doc}^^xsd:anyUri .
+source          SELECT id, trim(doc::text, '"') AS doc FROM (SELECT p.id, json_array_elements(e.value::json) AS doc FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='documentation' AND is_valid_json(e.value) AND p.state='active') a
+
+mappingId       Dataset-provenance
+target          klms:dataset/{id} dct:provenance {value} .
+source          SELECT p.id, e.value FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='provenance' AND p.state='active'
+
+mappingId       Dataset-version-notes
+target          klms:dataset/{id} adms:versionNotes {value} .
+source          SELECT p.id, e.value FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='version_notes' AND p.state='active'
+
+mappingId       Dataset-has-version-list
+target          klms:dataset/{id} dct:hasVersion {ver}^^xsd:anyUri .
+source          SELECT id, trim(ver::text, '"') AS ver FROM (SELECT p.id, json_array_elements(e.value::json) AS ver FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='has_version' AND is_valid_json(e.value) AND p.state='active') a
+
+mappingId       Dataset-is-version-of-list
+target          klms:dataset/{id} dct:isVersionOf {ver}^^xsd:anyUri .
+source          SELECT id, trim(ver::text, '"') AS ver FROM (SELECT p.id, json_array_elements(e.value::json) AS ver FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='is_version_of' AND is_valid_json(e.value) AND p.state='active') a
+
+mappingId       Dataset-contact-point
+target          klms:dataset/{id} dcat:contactPoint klms:user/{creator_user_id} . klms:user/{creator_user_id} a vcard:Individual; vcard:fn {contact_name} ; vcard:hasEmail {contact_email} .
+source          SELECT p.id, p.creator_user_id, (CASE WHEN e.key='contact_name' THEN e.value WHEN author IS NOT NULL THEN author ELSE maintainer END) AS contact_name, (CASE WHEN e.key='contact_email' THEN e.value WHEN author_email IS NOT NULL THEN author_email ELSE maintainer_email END) AS contact_email FROM package p, package_extra e WHERE e.package_id=p.id AND p.state='active'
+
+mappingId       Dataset-location
+target          klms:dataset/{id} dct:spatial klms:location/{eid} . klms:location/{eid} a dct:Location ; locn:geometry {value}^^iana:vnd.geo\+json .
+source          SELECT p.id, e.id AS eid, e.value FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='spatial' AND p.state='active'
+
+mappingId       Dataset-bbox
+target          klms:dataset/{id} dct:spatial klms:location/{eid} . klms:location/{eid} a dct:Location ; dcat:bbox {wkt}^^geo:wktLiteral .
+source          SELECT p.id, e.id AS eid, ST_AsText(s.the_geom) AS wkt FROM package p, package_extent s, package_extra e WHERE e.package_id=p.id AND e.key='spatial' AND s.package_id=p.id AND p.state='active'
+
+mappingId       Dataset-centroid
+target          klms:dataset/{id} dct:spatial klms:location/{eid} . klms:location/{eid} a dct:Location ; dcat:centroid {wkt}^^geo:wktLiteral .
+source          SELECT p.id, e.id AS eid, ST_AsText(ST_centroid(s.the_geom)) AS wkt FROM package p, package_extent s, package_extra e WHERE e.package_id=p.id AND e.key='spatial' AND s.package_id=p.id AND p.state='active'
+
+mappingId       Dataset-temporal
+target          klms:dataset/{id} dct:temporal klms:temporal/{id} . klms:temporal/{id} a dct:PeriodOfTime .
+source          SELECT DISTINCT p.id FROM package p, package_extra e WHERE e.package_id=p.id AND e.key IN ('temporal_start','temporal_end') AND p.state='active'
+
+mappingId       Dataset-temporal-start
+target          klms:temporal/{id} dcat:startDate {value}^^xsd:dateTime .
+source          SELECT e.package_id AS id, e.value FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='temporal_start' AND p.state='active'
+
+mappingId       Dataset-temporal-end
+target          klms:temporal/{id} dcat:endDate {value}^^xsd:dateTime .
+source          SELECT e.package_id AS id, e.value FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='temporal_end' AND p.state='active'
+
+mappingId	Dataset-other-extras
+target		klms:dataset/{id} klms:extraKeyValue klms:kvpair/{id}/{key} . klms:kvpair/{id}/{key} a klms:KeyValuePair; klms:key {key}^^xsd:string; klms:value {value}^^xsd:string .
+source		SELECT e.package_id AS id, e.key, e.value FROM package p, package_extra e WHERE e.package_id=p.id AND e.key NOT IN ('theme','alternate_identifier','issued','modified','language','frequency','access_rights','conforms_to','documentation','has_version','is_version_of','version_notes','provenance','contact_name','contact_email','spatial','temporal_start','temporal_end') AND p.state='active'
+
+
+
+mappingId       Dataset-Resource
+target          klms:dataset/{package_id} dcat:distribution klms:resource/{resource_id} .
+source          SELECT r.package_id, r.id AS resource_id FROM resource r, package p WHERE r.package_id=p.id AND p.state='active' AND r.state='active'
+
+mappingId       Resource-basic
+target          klms:resource/{id} a dcat:Distribution ; dct:title {name}^^xsd:string; dct:description {description}^^xsd:string; dcat:accessURL {url}; dcat:byteSize {size}^^xsd:integer; dct:format {format}^^xsd:string; dcat:mediaType {mimetype}^^xsd:string; dct:issued {created}^^xsd:dateTime; dct:modified {modified}^^xsd:dateTime .
+source          SELECT r.id, r.name, r.description, r.url, r.size, r.format, r.mimetype, r.created, (CASE WHEN r.last_modified > r.metadata_modified THEN r.last_modified ELSE r.metadata_modified END) AS modified FROM resource r, package p WHERE r.package_id=p.id AND p.state='active' AND r.state='active'
+
+mappingId       Resource-tags
+target          klms:resource/{id} dcat:keyword {tag}^^xsd:string .
+source          SELECT id, trim(tag::text, '"') AS tag FROM (SELECT r.id, json_array_elements(r.extras::json->'resource_tags') AS tag FROM resource r, package p WHERE r.package_id=p.id AND is_valid_json(r.extras) AND p.state='active' AND r.state='active') a
+
+mappingId       Resource-language-list
+target          klms:resource/{id} dct:language {lang}^^xsd:string .
+source          SELECT id, trim(lang::text, '"') AS lang FROM (SELECT r.id, json_array_elements(r.extras::json->'language') AS lang FROM resource r, package p WHERE r.package_id=p.id AND is_valid_json(r.extras) AND p.state='active' AND r.state='active') a
+
+mappingId       Resource-conforms-to-list
+target          klms:resource/{id} dct:conformsTo {conform}^^xsd:string .
+source          SELECT id, trim(conform::text, '"') AS conform FROM (SELECT r.id, json_array_elements(r.extras::json->'conforms_to') AS conform FROM resource r, package p WHERE r.package_id=p.id AND is_valid_json(r.extras) AND p.state='active' AND r.state='active') a
+
+mappingId       Resource-access-rights
+target          klms:resource/{id} dct:accessRights {access}^^xsd:string .
+source          SELECT id, trim(access::text, '"') AS access FROM (SELECT r.id, json_array_elements(r.extras::json->'access_rights') AS access FROM resource r, package p WHERE r.package_id=p.id AND is_valid_json(r.extras) AND p.state='active' AND r.state='active') a
+
+mappingId       Resource-documentation-list
+target          klms:resource/{id} foaf:page {doc}^^xsd:anyUri .
+source          SELECT id, trim(doc::text, '"') AS doc FROM (SELECT r.id, json_array_elements(r.extras::json->'documentation') AS doc FROM resource r, package p WHERE r.package_id=p.id AND is_valid_json(r.extras) AND p.state='active' AND r.state='active') a
+
+mappingId	Resource-other-extras
+target		klms:resource/{id} klms:extraKeyValue klms:kvpair/{id}/{key} . klms:kvpair/{id}/{key} a klms:KeyValuePair; klms:key {key}^^xsd:string; klms:value {value}^^xsd:string .
+source		SELECT id, key, value FROM (SELECT r.id, json_data.key AS key, json_data.value AS value FROM resource r, package p, json_each(r.extras::json) AS json_data WHERE r.package_id=p.id AND is_valid_json(r.extras) AND p.state='active' AND r.state='active') e WHERE e.key NOT IN ('resource_tags','language','access_rights','conforms_to','documentation')
+
+
+mappingId       Resource-Profile
+target          klms:resource/{resource_id} klms:profileURL {url} . 
+source          SELECT r.id AS resource_id, r.url FROM resource r, package p WHERE r.package_id=p.id AND r.resource_type IS NOT NULL AND p.state='active'
+
+mappingId       Profile-Tabular
+target          klms:resource/{resource_id} a klms:Tabular; klms:numRows {num_rows}^^xsd:integer; klms:numColumns {num_columns}^^xsd:integer . 
+source          SELECT resource_id, num_rows, num_columns FROM klms.tabular
+
+mappingId       Profile-Hierarchical
+target          klms:resource/{resource_id} a klms:Hierarchical; klms:numRecords {num_records}^^xsd:integer; klms:numAttributes {num_attributes}^^xsd:integer; klms:depthDistribution klms:distribution:{depth_distribution} . 
+source          SELECT resource_id, num_records, num_attributes, depth_distribution FROM klms.hierarchical
+
+mappingId       Profile-RDFGraph
+target          klms:resource/{resource_id} a klms:RDFGraph; klms:numNodes {num_nodes}^^xsd:integer; klms:numEdges {num_edges}^^xsd:integer; klms:numNamespaces {num_namespaces}^^xsd:integer; klms:numClasses {num_classes}^^xsd:integer; klms:numObjectProperties {num_object_properties}^^xsd:integer; klms:numDatatypeProperties {num_datatype_properties}^^xsd:integer; klms:density {density}^^xsd:float; klms:numConnectedComponents {num_connected_components}^^xsd:integer; klms:degreeCentralityDistribution klms:distribution/{degree_centrality_distribution}; klms:degreeDistribution klms:distribution/{degree_distribution}; klms:inDegreeDistribution klms:distribution/{in_degree_distribution}; klms:outDegreeDistribution klms:distribution/{out_degree_distribution}; klms:classDistribution klms:distribution/{class_distribution} . 
+source          SELECT resource_id, num_nodes, num_edges, num_namespaces, num_classes, num_object_properties, num_datatype_properties, density, num_connected_components, degree_centrality_distribution, degree_distribution, in_degree_distribution, out_degree_distribution, class_distribution FROM klms.rdfgraph
+
+mappingId       Profile-Raster
+target          klms:resource/{resource_id} a klms:Raster; klms:height {height}^^xsd:integer; klms:width {width}^^xsd:integer; klms:crs {crs}; dct:spatial {spatial_coverage}^^geo:wktLiteral; dcat:spatialResolutionInMeters {spatial_resolution}^^xsd:integer; klms:noDataValue {no_data_value} . 
+source          SELECT resource_id, height, width, crs, ST_AsText(spatial_coverage) AS spatial_coverage, spatial_resolution, no_data_value FROM klms.raster
+
+mappingId       Profile-Text
+target          klms:resource/{resource_id} a klms:Text; klms:language {language}; klms:numSentences {num_sentences}^^xsd:integer; klms:numWords {num_words}^^xsd:integer; klms:numDistinctWords {num_distinct_words}; klms:numCharacters {num_characters}^^xsd:integer; klms:ratioUppercase {ratio_uppercase}^^xsd:float; klms:ratioDigits {ratio_digits}^^xsd:float; klms:ratioSpecialCharacters {ratio_special_characters}^^xsd:float; klms:sentenceLengthDistribution klms:distribution/{sentence_length_distribution}; klms:wordLengthDistribution klms:distribution/{word_length_distribution}; klms:specialCharactersDistribution klms:distribution/{special_characters_distribution}; klms:languageDistribution klms:distribution/{language_distribution} .
+source          SELECT resource_id, language, num_sentences, num_words, num_distinct_words, num_characters, ratio_uppercase, ratio_digits, ratio_special_characters, sentence_length_distribution, word_length_distribution, special_characters_distribution, language_distribution FROM klms.text
+
+mappingId       Profile-raster-temporal-extent
+target          klms:resource/{resource_id} dct:temporal klms:temporal/{resource_id}; dcat:temporalResolution {temporal_resolution} . klms:temporal/{resource_id} a dct:PeriodOfTime .
+source          SELECT resource_id, start_date, end_date, temporal_resolution FROM klms.raster
+
+mappingId       Profile-raster-temporal-bounds
+target          klms:temporal/{resource_id} dcat:startDate {start_date}^^xsd:dateTime; dcat:endDate {end_date}^^xsd:dateTime .
+source          SELECT resource_id, start_date, end_date FROM klms.raster
+
+mappingId       Profile-attribute
+target          klms:resource/{resource_id} klms:contains klms:attribute/{attr_id} . 
+source          SELECT resource_id, attr_id FROM klms.attribute
+
+mappingId       Profile-attribute-info
+target          klms:attribute/{attr_id} dct:title {attr_name}; klms:type {type}; klms:missingRatio {missing_ratio}^^xsd:float; klms:uniqueness {uniqueness}^^xsd:float; klms:nestingLevel {nesting_level}^^xsd:integer .
+source          SELECT attr_id, attr_name, type, count, (1.0*num_missing/count) AS missing_ratio, uniqueness, nesting_level FROM klms.attribute
+
+mappingId       Profile-categorical-attribute
+target          klms:attribute/{attr_id} a klms:CategoricalAttribute; klms:frequencyDistribution klms:distribution/{frequency_distribution} . 
+source          SELECT attr_id, frequency_distribution FROM klms.categorical_attribute
+
+mappingId       Profile-spatial-attribute
+target          klms:attribute/{attr_id} a klms:SpatialAttribute; dcat:bbox {mbr}^^geo:wktLiteral; dcat:centroid {centroid}^^geo:wktLiteral; klms:crs {crs}; klms:lengthDistribution klms:distribution/{length_distribution}; klms:areaDistribution klms:distribution/{area_distribution}; klms:geomTypeDistribution klms:distribution/{geom_type_distribution} . 
+source          SELECT attr_id, ST_AsText(mbr) AS mbr, ST_AsText(centroid) AS centroid, crs, length_distribution, area_distribution, geom_type_distribution FROM klms.geometry_attribute
+
+mappingId       Profile-numerical-attribute
+target          klms:attribute/{attr_id} a klms:NumericalAttribute; klms:valueDistribution klms:distribution/{value_distribution} . 
+source          SELECT attr_id, value_distribution FROM klms.numerical_attribute
+
+mappingId       Profile-series-attribute
+target          klms:attribute/{attr_id} a klms:SeriesAttribute; klms:numPeaks {num_peaks}^^xsd:integer; klms:absEnergy {abs_energy}^^xsd:double; klms:absSumChanges {abs_sum_changes}^^xsd:double; klms:lenAboveMean {len_above_mean}^^xsd:double; klms:lenBelowMean {len_below_mean}^^xsd:double; klms:valueDistribution klms:distribution/{value_distribution} . 
+source          SELECT attr_id, num_peaks, abs_energy, abs_sum_changes, len_above_mean, len_below_mean, value_distribution FROM klms.series_attribute
+
+mappingId       Profile-temporal-attribute
+target          klms:attribute/{attr_id} a klms:TemporalAttribute; dcat:startDate {start_time}^^xsd:dateTime; dcat:endDate {end_time}^^xsd:dateTime; klms:resolutionDistribution klms:distribution/{resolution_distribution} . 
+source          SELECT attr_id, start_time, end_time, resolution_distribution FROM klms.temporal_attribute
+
+mappingId       Profile-textual-attribute
+target          klms:attribute/{attr_id} a klms:TextualAttribute; klms:ratioUppercase {ratio_uppercase}^^xsd:float; klms:ratioDigits {ratio_digits}^^xsd:float; klms:ratioSpecialCharacters {ratio_special_characters}^^xsd:float; klms:numCharsDistribution klms:distribution/{num_chars_distribution}; klms:numWordsDistribution klms:distribution/{num_words_distribution} . 
+source          SELECT attr_id, ratio_uppercase, ratio_digits, ratio_special_characters, num_chars_distribution, num_words_distribution FROM klms.textual_attribute
+
+mappingId       Profile-numerical-distribution
+target          klms:distribution/{distr_id} a klms:NumericalDistribution; klms:min {min}^^xsd:double; klms:max {max}^^xsd:double; klms:count {count}^^xsd:integer; klms:average {average}^^xsd:double; klms:stddev {stddev}^^xsd:double; klms:median {median}^^xsd:double; klms:kurtosis {kurtosis}^^xsd:double; klms:skewness {skewness}^^xsd:double; klms:variance {variance}^^xsd:double; klms:percentile10 {percentile10}^^xsd:double; klms:percentile25 {percentile25}^^xsd:double; klms:percentile75 {percentile75}^^xsd:double; klms:percentile90 {percentile90}^^xsd:double .
+source          SELECT distr_id, count, average, stddev, min, max, median, percentile10, percentile25, percentile75, percentile90, kurtosis, skewness, variance FROM klms.numerical_distribution
+
+mappingId       Profile-categorical-distribution
+target          klms:distribution/{distr_id} a klms:CategoricalDistribution; klms:name {type}^^xsd:string; klms:count {count}^^xsd:integer;  klms:percentage {percentage}^^xsd:double .
+source          SELECT distr_id, type, count, percentage FROM klms.categorical_distribution
+
+
+
+mappingId	Airflow-workflow
+target		klms:workflow/{dag_id} a klms:Workflow ; dct:title {dag_id}^^xsd:string ; dct:description {description}^^xsd:string ; klms:schedule {schedule_interval}^^xsd:string ; dct:creator klms:user/{user_id} ; klms:nextRun {next_dagrun} ; klms:hasParent {root_dag_id} .
+source		SELECT d.dag_id, d.description, u.id AS user_id, d.schedule_interval, next_dagrun, root_dag_id FROM airflow.dag d, public.user u WHERE d.owners=u.name
+
+mappingId	Airflow-workflow-execution
+target		klms:execution/{exec_id} a klms:WorkflowExecution ; klms:instantiates klms:workflow/{dag_id} ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string .
+source		SELECT dag_id, CONCAT(dag_id, '_', run_id) AS exec_id, start_date, end_date, state FROM airflow.dag_run;
+
+mappingId	Airflow-task
+target		klms:task/{combo_task_id} a klms:Task ; dct:isPartOf klms:workflow/{dag_id}; dct:title {task_id}^^xsd:string .
+source		SELECT DISTINCT CONCAT(dag_id, '_', task_id) AS combo_task_id, task_id, dag_id FROM airflow.task_instance
+
+
+mappingId	MLFlow-task-instance
+target		klms:execution/{run_uuid} a klms:TaskExecution ; klms:instantiates klms:task/{combo_task_id} ; dct:isPartOf klms:execution/{exec_id} ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string .
+source		SELECT M1.run_uuid, CONCAT(T.dag_id, '_', T.task_id) AS combo_task_id, CONCAT(T.dag_id, '_', T.run_id) AS exec_id, T.start_date, T.end_date, T.state FROM mlflow.tags M1, mlflow.tags M2, mlflow.tags M3, airflow.dag_run R, airflow.task_instance T WHERE M1.key = 'run_id' AND M1.value = R.run_id AND M2.key = 'dag_id' AND M2.value = R.dag_id AND M3.key = 'task_id' AND M3.value = T.task_id AND M1.run_uuid=M2.run_uuid AND M2.run_uuid=M3.run_uuid AND R.dag_id=T.dag_id AND R.run_id=T.run_id
+
+mappingId	MLFlow-parameters
+target		klms:execution/{run_uuid} klms:hasParameters klms:kvpair/{run_uuid}/{key} . klms:kvpair/{run_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value} .
+source		SELECT run_uuid, key, value FROM mlflow.params
+
+mappingId	MLFlow-metrics
+target		klms:execution/{run_uuid} klms:hasMetrics klms:kvpair/{run_uuid}/{key} . klms:kvpair/{run_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value}; dct:issued {timestamp}^^xsd:dateTime; klms:step {step} .
+source		SELECT run_uuid, key, value, timestamp, step FROM mlflow.metrics
+
+mappingId	MLFlow-execution-tags
+target		klms:execution/{run_uuid} klms:hasTags klms:kvpair/{run_uuid}/{key} . klms:kvpair/{run_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value} .
+source		SELECT run_uuid, key, value FROM mlflow.tags WHERE key NOT IN ('dag_id','run_id','task_id','mlflow.user','input','output')
+
+mappingId	MLFlow-execution-creator
+target		klms:execution/{run_uuid} dct:creator klms:user/{value} .
+source		SELECT run_uuid, value FROM mlflow.tags WHERE key='mlflow.user' AND length(value)>0
+
+mappingId	MLFlow-execution-input
+target		klms:execution/{run_uuid} klms:hasInput klms:resource/{resource_id}  .
+source		SELECT run_uuid, value AS resource_id FROM mlflow.params WHERE key='input' AND length(value)>0
+
+mappingId	MLFlow-execution-output
+target		klms:execution/{run_uuid} klms:hasOutput klms:resource/{resource_id}  .
+source		SELECT run_uuid, value AS resource_id FROM mlflow.params WHERE key='output' AND length(value)>0
+
+
+]]

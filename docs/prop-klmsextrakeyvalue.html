@@ -1,12 +1,6 @@
 
 
 
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -158,7 +152,80 @@
 
 
 /*pygments css*/
-
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.highlight .hll { background-color: #ffffcc }
+.highlight { background: #f8f8f8; }
+.highlight .c { color: #3D7B7B; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #3D7B7B; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #3D7B7B; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #9C6500 } /* Comment.Preproc */
+.highlight .cpf { color: #3D7B7B; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #3D7B7B; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #3D7B7B; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #E40000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #008400 } /* Generic.Inserted */
+.highlight .go { color: #717171 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #687822 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #717171; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #CB3F38; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #767600 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sa { color: #BA2121 } /* Literal.String.Affix */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .dl { color: #BA2121 } /* Literal.String.Delimiter */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #AA5D1F; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #A45A77; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #A45A77 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .fm { color: #0000FF } /* Name.Function.Magic */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .vm { color: #19177C } /* Name.Variable.Magic */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
 
 /*overloading this class from pygments*/
 .highlight {
@@ -183,7 +250,8 @@
   <body>
 
 
-  
+
+    
 <!-- Fixed navbar -->
 <nav class="navbar navbar-default navbar-fixed-top">
   <div class="container-fluid">
@@ -234,12 +302,14 @@
 
 
 
+
 <div id="wrapper" class="toggled">
 
 
     
-  
+
     
+        
 <!-- Sidebar -->
 <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
@@ -281,7 +351,7 @@
           
               <li class="second-level" style="line-height: 20px;" id="sd_43"><a  href="class-foafdocument.html">foaf:Document</a></li>
           
-              <li class="second-level" style="line-height: 20px;" id="sd_44"><a class="active" href="class-foafimage.html">foaf:Image</a></li>
+              <li class="second-level" style="line-height: 20px;" id="sd_44"><a  href="class-foafimage.html">foaf:Image</a></li>
           
               <li class="second-level" style="line-height: 20px;" id="sd_45"><a  href="class-foaforganization.html">foaf:Organization</a></li>
           
@@ -463,7 +533,7 @@
           
               <li class="second-level" style="line-height: 20px;" id="sd_137"><a   href="prop-klmsdepthdistribution.html">klms:depthDistribution</a></li>
           
-              <li class="second-level" style="line-height: 20px;" id="sd_138"><a   href="prop-klmsextrakeyvalue.html">klms:extraKeyValue</a></li>
+              <li class="second-level" style="line-height: 20px;" id="sd_138"><a class="active"  href="prop-klmsextrakeyvalue.html">klms:extraKeyValue</a></li>
           
               <li class="second-level" style="line-height: 20px;" id="sd_139"><a   href="prop-klmsfrequencydistribution.html">klms:frequencyDistribution</a></li>
           
@@ -621,7 +691,8 @@
 
 
 <!-- /#sidebar-wrapper -->
-  
+    
+
 
 
 
@@ -632,11 +703,19 @@
 
 	
 
-      
 
-    
-    
+
+
         
+
+
+        
+            
+
+
+
+
+
 
 
 
@@ -690,10 +769,10 @@
           <a href="entities-az.html">Entities</a>
     </li>
     <li>
-          <a href="entities-tree-classes.html">Classes</a>
+          <a href="entities-tree-properties.html">Properties</a>
     </li>
       <li class="active">
-            foaf:Image
+            klms:extraKeyValue
         </li>
   </ol>
 
@@ -711,278 +790,195 @@
 
 
 
+        
 
 
 
+            <h1>
 
-
-    
-
-    
-    <h1>
-      foaf:Image
-      
-        <small class="label label-info label-xs">leaf node</small>
-      
-    </h1>
-
-    <hr>  
-
-    
-    <div class="tree-container">
-      <div class="tree">
-        <ul>
-          
-            <li><a href="entities-tree-classes.html">owl:Thing</a>
-              <ul>
-                <li><a style="font-weight: bold;" title="'Image'">foaf:Image</a>
+                klms:extraKeyValue
+                
+                    <small class="label label-info label-xs ">leaf node</small>
                   
-                </li>
-              </ul>
-            </li>
-          
-        </ul>
-      </div>
-    </div>
+
+            </h1>
+
+            <hr>
 
 
-    
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">URI</h3>
+
+            <div class="tree-container">
+            <div class="tree">
+                <ul>
+                    
+
+                        <li><a href="entities-tree-properties.html">rdf:Property</a>
+
+                          <ul>
+                            <li><a style="font-weight: bold;" title="'Distribution - extraKeyValue' - This property links a Dataset with one or more extra key/value pairs. - This property links a Distribution with one..">klms:extraKeyValue</a>
+
+                            
+                              </li>
+
+                          </ul>
+
+                        </li>
+                    
+
+                </ul>
+            </div>
+            </div>
+
+
+
+
+            <div class="row"><div class="col-md-12">
+               <div class="panel panel-default">
+             <div class="panel-heading">
+               <h3 class="panel-title">URI</h3>
+             </div>
+             <div class="panel-body">
+
+                 <code>http://stelar-project.eu/klms#extraKeyValue</code>
+             </div>
+           </div>
+            </div></div>
+
+
+
+            
+             <div class="row"><div class="col-md-12">
+               <div class="panel panel-default">
+             <div class="panel-heading">
+               <h3 class="panel-title">Label</h3>
+             </div>
+             <div class="panel-body">
+
+                 Distribution - extraKeyValue
+             </div>
+           </div>
+            </div></div>
+            
+
+
+            
+            <div class="row"><div class="col-md-12">
+              <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Description</h3>
+            </div>
+            <div class="panel-body">
+
+                <p>This property links a Dataset with one or more extra key/value pairs. - This property links a Distribution with one or more extra key/value pairs.</p>
+            </div>
           </div>
-          <div class="panel-body">
-            <code>http://xmlns.com/foaf/0.1/Image</code>
-          </div>
-        </div>
-      </div>
-    </div>
+           </div></div>
+           
 
 
-    
-    
-      <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Label</h3>
-          </div>
-          <div class="panel-body">
-            Image
-          </div>
-          </div>
-        </div>
-      </div>
-    
+
+            
 
 
-    
-    
+
+            
 
 
-    
-    
-
-
-    
-    
-
-
-    
-    
-
-
-    
-    
-      <div class="row">
-        <div class="col-md-12">
-          <div class="panel panel-default">
+            <div class="row"><div class="col-md-12">
+              <div class="panel panel-default">
             <div class="panel-heading">
               <h3 class="panel-title">Usage</h3>
             </div>
-            <div class="panel-body" style="overflow: auto;">
-              <p>Instances of foaf:Image can have the following properties:</p>
-            </div>
+
             <table class="table table-bordered" style="overflow: auto;">
-              <tr class="table-classproperties">
-                <th>PROPERTY</th><th>TYPE</th><th>DESCRIPTION</th><th>RANGE</th>
-              </tr>
-              
-                
-                  
-                
-              
-                
-                  
-                      <tr class="table-inheritanceinfo">
-                        <th colspan="4" class="treeinfo">
-                          <span class="label label-default">From class <a title="owl:Thing" href="class-owlthing.html" class="fromclass_link">owl:Thing</a></span>
-                        </th>
-                      </tr>
-                    
-                      <tr>
-                        <td class="firsttd">
-                          <a class="propcolor" title="dcat:distribution" href="prop-dcatdistribution.html">dcat:distribution</a>
-                        </td>
-                        <td class="secondtd">
-                          <i>owl:ObjectProperty<i>
-                        </td>
-                        <td class="thirdtd">
-                          <span>This property links the Dataset to an available Distribution.</span>
-                        </td>
-                        <td class="fourthtd">
+
+               <tr class="table-classproperties">
+                   <th>DOMAIN</th><th>PROPERTY</th><th>RANGE</th>
+               </tr>
+               <tr>
+                   <td>
+                     
+                         
+                         
+                              <a href="class-dcatdistribution.html" title="http://www.w3.org/ns/dcat#Distribution">dcat:Distribution</a>
+                           
+                           , 
+                         
+                         
+                              <a href="class-dcatdataset.html" title="http://www.w3.org/ns/dcat#Dataset">dcat:Dataset</a>
+                           
+                           
+                         
+                     
+                   </td>
+
+                    <td>
+                      klms:extraKeyValue
+                    </td>
+
+                    <td>
+                      
                           
-                              <i>owl:Thing</i>
                           
-                        </td>
-                      </tr>
-                    
-                      <tr>
-                        <td class="firsttd">
-                          <a class="propcolor" title="dcat:theme" href="prop-dcattheme.html">dcat:theme</a>
-                        </td>
-                        <td class="secondtd">
-                          <i>owl:ObjectProperty<i>
-                        </td>
-                        <td class="thirdtd">
-                          <span>This property refers to a thematic category of the Dataset. A Dataset may be associated with multiple themes. Subproperty of dct:subject</span>
-                        </td>
-                        <td class="fourthtd">
-                          
-                              <i>owl:Thing</i>
-                          
-                        </td>
-                      </tr>
-                    
-                      <tr>
-                        <td class="firsttd">
-                          <a class="propcolor" title="dcterms:license" href="prop-dctermslicense.html">dcterms:license</a>
-                        </td>
-                        <td class="secondtd">
-                          <i>owl:DatatypeProperty<i>
-                        </td>
-                        <td class="thirdtd">
-                          <span>This property refers to the licence under which the Dataset is made available. NOTE: License in KLMS refers to the Dataset (as in CKAN); instead, in the DCAT model it is at the Distribution level.</span>
-                        </td>
-                        <td class="fourthtd">
-                          
-                              <i>owl:Thing</i>
-                          
-                        </td>
-                      </tr>
-                    
-                      <tr>
-                        <td class="firsttd">
-                          <a class="propcolor" title="dcterms:type" href="prop-dctermstype.html">dcterms:type</a>
-                        </td>
-                        <td class="secondtd">
-                          <i>owl:DatatypeProperty<i>
-                        </td>
-                        <td class="thirdtd">
-                          <span>This property refers to the type of the Dataset. NOTE: A controlled vocabulary for the values has not been established.</span>
-                        </td>
-                        <td class="fourthtd">
-                          
-                              <i>owl:Thing</i>
-                          
-                        </td>
-                      </tr>
-                    
-                      <tr>
-                        <td class="firsttd">
-                          <a class="propcolor" title="klms:contains" href="prop-klmscontains.html">klms:contains</a>
-                        </td>
-                        <td class="secondtd">
-                          <i>owl:ObjectProperty<i>
-                        </td>
-                        <td class="thirdtd">
-                          <span>This property is used to indicate a contains relation among classes.</span>
-                        </td>
-                        <td class="fourthtd">
-                          
-                              <i>owl:Thing</i>
-                          
-                        </td>
-                      </tr>
-                    
-                      <tr>
-                        <td class="firsttd">
-                          <a class="propcolor" title="klms:count" href="prop-klmscount.html">klms:count</a>
-                        </td>
-                        <td class="secondtd">
-                          <i>owl:DatatypeProperty<i>
-                        </td>
-                        <td class="thirdtd">
-                          <span>A count.</span>
-                        </td>
-                        <td class="fourthtd">
-                          
+                               <a href="class-klmskeyvaluepair.html" title="http://stelar-project.eu/klms#KeyValuePair">klms:KeyValuePair</a>
                             
-                                
-                                  <i>xsd:int</i>
-                                
                             
                           
-                        </td>
-                      </tr>
-                    
-                      <tr>
-                        <td class="firsttd">
-                          <a class="propcolor" title="klms:crs" href="prop-klmscrs.html">klms:crs</a>
-                        </td>
-                        <td class="secondtd">
-                          <i>owl:DatatypeProperty<i>
-                        </td>
-                        <td class="thirdtd">
-                          <span>The CRS of a geospatial dataset.</span>
-                        </td>
-                        <td class="fourthtd">
-                          
-                            
-                                
-                                  <i>xsd:string</i>
-                                
-                            
-                          
-                        </td>
-                      </tr>
-                    
-                  
-                
-              
+                      
+                    </td>
             </table>
+
           </div>
-        </div>
-      </div>
-    
+           </div></div>
 
 
-    
-    
+
+           <div class="row"><div class="col-md-12">
+              <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Implementation</h3>
+            </div>
+            <div class="panel-body implementation-panel">
+
+                
+
+                    <div class="highlight"><pre><span></span><span class="k">@prefix</span><span class="w"> </span><span class="nn">:</span><span class="w"> </span><span class="nv">&lt;http://stelar-project.eu/klms#&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">dcat:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/ns/dcat#&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">dcterms:</span><span class="w"> </span><span class="nv">&lt;http://purl.org/dc/terms/&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">owl:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/2002/07/owl#&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">rdfs:</span><span class="w"> </span><span class="nv">&lt;http://www.w3.org/2000/01/rdf-schema#&gt;</span><span class="w"> </span><span class="p">.</span>
+<span class="k">@prefix</span><span class="w"> </span><span class="nn">vann:</span><span class="w"> </span><span class="nv">&lt;http://purl.org/vocab/vann/&gt;</span><span class="w"> </span><span class="p">.</span>
+
+<span class="p">:</span><span class="nt">extraKeyValue</span> <span class="kt">a</span> <span class="nn">owl</span><span class="p">:</span><span class="nt">ObjectProperty</span> <span class="p">;</span>
+    <span class="nn">rdfs</span><span class="p">:</span><span class="nt">label</span> <span class="s">&quot;Dataset - extraKeyValue&quot;</span><span class="o">@</span><span class="ge">en</span><span class="p">,</span>
+        <span class="s">&quot;Distribution - extraKeyValue&quot;</span><span class="o">@</span><span class="ge">en</span> <span class="p">;</span>
+    <span class="nn">dcterms</span><span class="p">:</span><span class="nt">identifier</span> <span class="s">&quot;klms:extraKeyValue&quot;</span> <span class="p">;</span>
+    <span class="nn">vann</span><span class="p">:</span><span class="nt">usageNote</span> <span class="s">&quot;Optional property. This property links a Dataset with one or more extra key/value pairs.&quot;</span><span class="o">@</span><span class="ge">en</span><span class="p">,</span>
+        <span class="s">&quot;Optional property. This property links a Distribution with one or more extra key/value pairs.&quot;</span><span class="o">@</span><span class="ge">en</span> <span class="p">;</span>
+    <span class="nn">rdfs</span><span class="p">:</span><span class="nt">comment</span> <span class="s">&quot;This property links a Dataset with one or more extra key/value pairs.&quot;</span><span class="o">@</span><span class="ge">en</span><span class="p">,</span>
+        <span class="s">&quot;This property links a Distribution with one or more extra key/value pairs.&quot;</span><span class="o">@</span><span class="ge">en</span> <span class="p">;</span>
+    <span class="nn">rdfs</span><span class="p">:</span><span class="nt">domain</span> <span class="nn">dcat</span><span class="p">:</span><span class="nt">Dataset</span><span class="p">,</span>
+        <span class="nn">dcat</span><span class="p">:</span><span class="nt">Distribution</span> <span class="p">;</span>
+    <span class="nn">rdfs</span><span class="p">:</span><span class="nt">range</span> <span class="p">:</span><span class="nt">KeyValuePair</span> <span class="p">.</span>
+</pre></div>
 
 
-    
-    <div class="row">
-      <div class="col-md-12">
-        <div class="panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Implementation</h3>
+                
+            </div>
           </div>
-          <div class="panel-body implementation-panel">
-            
-              <div class="implementation">
-                <code style="background-color: white;"></code>
-              </div>
-            
-          </div>
-        </div>
-      </div>
-    </div>
+           </div></div>
+
+
 
 
         
+
+
+
+
+
+
+
 
 
 
@@ -1063,7 +1059,7 @@ $('#search-input-sidebar').keyup(function() {
 
     $(document).ready(function (){
       $('#sidebar-wrapper').animate({
-          scrollTop: $("#sd_44").offset().top - 100
+          scrollTop: $("#sd_138").offset().top - 100
       }, 100);
     });
 

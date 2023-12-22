@@ -669,7 +669,16 @@
 		  <rdfs:comment xml:lang="en">This property refers to a secondary identifier of the Dataset, such as MAST/ADS[1], DataCite[2], DOI[3], EZID[4] or W3ID[5].</rdfs:comment>
 	 </owl:ObjectProperty>
 
- 
+ <!-- Dataset - extraKeyValue -->
+    <owl:ObjectProperty rdf:about="http://stelar-project.eu/klms#extraKeyValue">
+		<vann:usageNote xml:lang="en">Optional property. This property links a Dataset with one or more extra key/value pairs.</vann:usageNote>
+		<dct:identifier>klms:extraKeyValue</dct:identifier>
+		<rdfs:label xml:lang="en">Dataset - extraKeyValue</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/dcat#Dataset"/>
+        <rdfs:range rdf:resource="http://stelar-project.eu/klms#KeyValuePair"/>
+        <rdfs:comment xml:lang="en">This property links a Dataset with one or more extra key/value pairs.</rdfs:comment>
+    </owl:ObjectProperty>
+	
 <!-- ====================================== --> 
 <!-- ==   Location - Properties    == --> 
 <!-- ====================================== --> 
@@ -962,7 +971,17 @@
 		  <rdfs:comment xml:lang="en">This property refers to a page or document about this Distribution.</rdfs:comment>
 	 </owl:ObjectProperty>
 
-
+<!-- Distribution - extraKeyValue -->
+    <owl:ObjectProperty rdf:about="http://stelar-project.eu/klms#extraKeyValue">
+		<vann:usageNote xml:lang="en">Optional property. This property links a Distribution with one or more extra key/value pairs.</vann:usageNote>
+		<dct:identifier>klms:extraKeyValue</dct:identifier>
+		<rdfs:label xml:lang="en">Distribution - extraKeyValue</rdfs:label>
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/dcat#Distribution"/>
+        <rdfs:range rdf:resource="http://stelar-project.eu/klms#KeyValuePair"/>
+        <rdfs:comment xml:lang="en">This property links a Distribution with one or more extra key/value pairs.</rdfs:comment>
+    </owl:ObjectProperty>
+	
+	
 <!--  Distribution - profile URL   -->
     <owl:DatatypeProperty rdf:about="http://stelar-project.eu/klms#profileURL"> 
         <rdfs:label xml:lang="en">Distribution - Profile URL</rdfs:label>
