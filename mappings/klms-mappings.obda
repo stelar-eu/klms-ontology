@@ -135,7 +135,7 @@ target          klms:dataset/{package_id} dcat:distribution klms:resource/{resou
 source          SELECT r.package_id, r.id AS resource_id FROM resource r, package p WHERE r.package_id=p.id AND p.state='active' AND r.state='active'
 
 mappingId       Resource-basic
-target          klms:resource/{id} a dcat:Distribution ; dct:title {name}^^xsd:string; dct:description {description}^^xsd:string; dcat:accessURL {url}; dcat:byteSize {size}^^xsd:integer; dct:format {format}^^xsd:string; dcat:mediaType {mimetype}^^xsd:string; dct:issued {created}^^xsd:dateTime; dct:modified {modified}^^xsd:dateTime .
+target          klms:resource/{id} a dcat:Distribution ; dct:identifier {id}^^xsd:string ; dct:title {name}^^xsd:string; dct:description {description}^^xsd:string; dcat:accessURL {url}; dcat:byteSize {size}^^xsd:integer; dct:format {format}^^xsd:string; dcat:mediaType {mimetype}^^xsd:string; dct:issued {created}^^xsd:dateTime; dct:modified {modified}^^xsd:dateTime .
 source          SELECT r.id, r.name, r.description, r.url, r.size, r.format, r.mimetype, r.created, (CASE WHEN r.last_modified > r.metadata_modified THEN r.last_modified ELSE r.metadata_modified END) AS modified FROM resource r, package p WHERE r.package_id=p.id AND p.state='active' AND r.state='active'
 
 mappingId       Resource-tags
@@ -179,21 +179,29 @@ mappingId       Profile-RDFGraph
 target          klms:resource/{resource_id} a klms:RDFGraph; klms:numNodes {num_nodes}^^xsd:integer; klms:numEdges {num_edges}^^xsd:integer; klms:numNamespaces {num_namespaces}^^xsd:integer; klms:numClasses {num_classes}^^xsd:integer; klms:numObjectProperties {num_object_properties}^^xsd:integer; klms:numDatatypeProperties {num_datatype_properties}^^xsd:integer; klms:density {density}^^xsd:float; klms:numConnectedComponents {num_connected_components}^^xsd:integer; klms:degreeCentralityDistribution klms:distribution/{degree_centrality_distribution}; klms:degreeDistribution klms:distribution/{degree_distribution}; klms:inDegreeDistribution klms:distribution/{in_degree_distribution}; klms:outDegreeDistribution klms:distribution/{out_degree_distribution}; klms:classDistribution klms:distribution/{class_distribution} . 
 source          SELECT resource_id, num_nodes, num_edges, num_namespaces, num_classes, num_object_properties, num_datatype_properties, density, num_connected_components, degree_centrality_distribution, degree_distribution, in_degree_distribution, out_degree_distribution, class_distribution FROM klms.rdfgraph
 
-mappingId       Profile-Raster
-target          klms:resource/{resource_id} a klms:Raster; klms:height {height}^^xsd:integer; klms:width {width}^^xsd:integer; klms:crs {crs}; dct:spatial {spatial_coverage}^^geo:wktLiteral; dcat:spatialResolutionInMeters {spatial_resolution}^^xsd:integer; klms:noDataValue {no_data_value} . 
-source          SELECT resource_id, height, width, crs, ST_AsText(spatial_coverage) AS spatial_coverage, spatial_resolution, no_data_value FROM klms.raster
+mappingId       Profile-Text-Collection
+target          klms:resource/{resource_id} a klms:TextCollection; klms:contains klms:resource/{resource_id}/{name} . 
+source          SELECT resource_id, name FROM klms.text
 
 mappingId       Profile-Text
-target          klms:resource/{resource_id} a klms:Text; klms:language {language}; klms:numSentences {num_sentences}^^xsd:integer; klms:numWords {num_words}^^xsd:integer; klms:numDistinctWords {num_distinct_words}; klms:numCharacters {num_characters}^^xsd:integer; klms:ratioUppercase {ratio_uppercase}^^xsd:float; klms:ratioDigits {ratio_digits}^^xsd:float; klms:ratioSpecialCharacters {ratio_special_characters}^^xsd:float; klms:sentenceLengthDistribution klms:distribution/{sentence_length_distribution}; klms:wordLengthDistribution klms:distribution/{word_length_distribution}; klms:specialCharactersDistribution klms:distribution/{special_characters_distribution}; klms:languageDistribution klms:distribution/{language_distribution} .
-source          SELECT resource_id, language, num_sentences, num_words, num_distinct_words, num_characters, ratio_uppercase, ratio_digits, ratio_special_characters, sentence_length_distribution, word_length_distribution, special_characters_distribution, language_distribution FROM klms.text
+target          klms:resource/{resource_id}/{name} a klms:Text; dct:title {name}^^xsd:string; klms:language {language}; klms:numSentences {num_sentences}^^xsd:integer; klms:numWords {num_words}^^xsd:integer; klms:numDistinctWords {num_distinct_words}; klms:numCharacters {num_characters}^^xsd:integer; klms:ratioUppercase {ratio_uppercase}^^xsd:float; klms:ratioDigits {ratio_digits}^^xsd:float; klms:ratioSpecialCharacters {ratio_special_characters}^^xsd:float; klms:sentenceLengthDistribution klms:distribution/{sentence_length_distribution}; klms:wordLengthDistribution klms:distribution/{word_length_distribution}; klms:specialCharactersDistribution klms:distribution/{special_characters_distribution}; klms:languageDistribution klms:distribution/{language_distribution} .
+source          SELECT resource_id, name, language, num_sentences, num_words, num_distinct_words, num_characters, ratio_uppercase, ratio_digits, ratio_special_characters, sentence_length_distribution, word_length_distribution, special_characters_distribution, language_distribution FROM klms.text
+
+mappingId       Profile-Raster-Collection
+target          klms:resource/{resource_id} a klms:RasterCollection; klms:contains klms:resource/{resource_id}/{name} . 
+source          SELECT resource_id, name FROM klms.raster
+
+mappingId       Profile-Raster
+target          klms:resource/{resource_id}/{name} a klms:Raster; dct:title {name}^^xsd:string; klms:height {height}^^xsd:integer; klms:width {width}^^xsd:integer; klms:crs {crs}; dct:spatial {spatial_coverage}^^geo:wktLiteral; dcat:spatialResolutionInMeters {spatial_resolution}^^xsd:integer; klms:noDataValue {no_data_value} . 
+source          SELECT resource_id, name, height, width, crs, ST_AsText(spatial_coverage) AS spatial_coverage, spatial_resolution, no_data_value FROM klms.raster
 
 mappingId       Profile-raster-temporal-extent
-target          klms:resource/{resource_id} dct:temporal klms:temporal/{resource_id}; dcat:temporalResolution {temporal_resolution} . klms:temporal/{resource_id} a dct:PeriodOfTime .
-source          SELECT resource_id, start_date, end_date, temporal_resolution FROM klms.raster
+target          klms:resource/{resource_id}/{name} dct:temporal klms:temporal/{resource_id}/{name}; dcat:temporalResolution {temporal_resolution} . klms:temporal/{resource_id}/{name} a dct:PeriodOfTime .
+source          SELECT resource_id, name, start_date, end_date, temporal_resolution FROM klms.raster
 
 mappingId       Profile-raster-temporal-bounds
-target          klms:temporal/{resource_id} dcat:startDate {start_date}^^xsd:dateTime; dcat:endDate {end_date}^^xsd:dateTime .
-source          SELECT resource_id, start_date, end_date FROM klms.raster
+target          klms:temporal/{resource_id}/{name} dcat:startDate {start_date}^^xsd:dateTime; dcat:endDate {end_date}^^xsd:dateTime .
+source          SELECT resource_id, name, start_date, end_date FROM klms.raster
 
 mappingId       Profile-attribute
 target          klms:resource/{resource_id} klms:contains klms:attribute/{attr_id} . 
@@ -215,6 +223,10 @@ mappingId       Profile-numerical-attribute
 target          klms:attribute/{attr_id} a klms:NumericalAttribute; klms:valueDistribution klms:distribution/{value_distribution} . 
 source          SELECT attr_id, value_distribution FROM klms.numerical_attribute
 
+mappingId       Profile-band-attribute
+target          klms:attribute/{attr_id} a klms:BandAttribute; dct:isPartOf klms:resource/{resource_id}/{raster_name}; klms:valueDistribution klms:distribution/{value_distribution}; klms:noDataDistribution klms:distribution/{no_data_distribution} . 
+source          SELECT a.resource_id, b.raster_name, b.attr_id, b.value_distribution, b.no_data_distribution FROM klms.attribute a, klms.band_attribute b WHERE a.attr_id = b.attr_id
+
 mappingId       Profile-series-attribute
 target          klms:attribute/{attr_id} a klms:SeriesAttribute; klms:numPeaks {num_peaks}^^xsd:integer; klms:absEnergy {abs_energy}^^xsd:double; klms:absSumChanges {abs_sum_changes}^^xsd:double; klms:lenAboveMean {len_above_mean}^^xsd:double; klms:lenBelowMean {len_below_mean}^^xsd:double; klms:valueDistribution klms:distribution/{value_distribution} . 
 source          SELECT attr_id, num_peaks, abs_energy, abs_sum_changes, len_above_mean, len_below_mean, value_distribution FROM klms.series_attribute
@@ -232,9 +244,8 @@ target          klms:distribution/{distr_id} a klms:NumericalDistribution; klms:
 source          SELECT distr_id, count, average, stddev, min, max, median, percentile10, percentile25, percentile75, percentile90, kurtosis, skewness, variance FROM klms.numerical_distribution
 
 mappingId       Profile-categorical-distribution
-target          klms:distribution/{distr_id} a klms:CategoricalDistribution; klms:name {type}^^xsd:string; klms:count {count}^^xsd:integer;  klms:percentage {percentage}^^xsd:double .
+target          klms:distribution/{distr_id} a klms:CategoricalDistribution; klms:contains klms:distribution/{distr_id}/{type} . klms:distribution/{distr_id}/{type} a klms:Category; klms:name {type}^^xsd:string; klms:count {count}^^xsd:integer;  klms:percentage {percentage}^^xsd:double .
 source          SELECT distr_id, type, count, percentage FROM klms.categorical_distribution
-
 
 
 mappingId	Airflow-workflow
@@ -242,7 +253,7 @@ target		klms:workflow/{dag_id} a klms:Workflow ; dct:title {dag_id}^^xsd:string 
 source		SELECT d.dag_id, d.description, u.id AS user_id, d.schedule_interval, next_dagrun, root_dag_id FROM airflow.dag d, public.user u WHERE d.owners=u.name
 
 mappingId	Airflow-workflow-execution
-target		klms:execution/{exec_id} a klms:WorkflowExecution ; klms:instantiates klms:workflow/{dag_id} ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string .
+target		klms:execution/{exec_id} a klms:WorkflowExecution ; dct:identifier {exec_id}^^xsd:string ; klms:instantiates klms:workflow/{dag_id} ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string .
 source		SELECT dag_id, CONCAT(dag_id, '_', run_id) AS exec_id, start_date, end_date, state FROM airflow.dag_run;
 
 mappingId	Airflow-task
@@ -251,7 +262,7 @@ source		SELECT DISTINCT CONCAT(dag_id, '_', task_id) AS combo_task_id, task_id, 
 
 
 mappingId	MLFlow-task-instance
-target		klms:execution/{run_uuid} a klms:TaskExecution ; klms:instantiates klms:task/{combo_task_id} ; dct:isPartOf klms:execution/{exec_id} ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string .
+target		klms:execution/{run_uuid} a klms:TaskExecution ; dct:identifier {run_uuid}^^xsd:string ; klms:instantiates klms:task/{combo_task_id} ; dct:isPartOf klms:execution/{exec_id} ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string .
 source		SELECT M1.run_uuid, CONCAT(T.dag_id, '_', T.task_id) AS combo_task_id, CONCAT(T.dag_id, '_', T.run_id) AS exec_id, T.start_date, T.end_date, T.state FROM mlflow.tags M1, mlflow.tags M2, mlflow.tags M3, airflow.dag_run R, airflow.task_instance T WHERE M1.key = 'run_id' AND M1.value = R.run_id AND M2.key = 'dag_id' AND M2.value = R.dag_id AND M3.key = 'task_id' AND M3.value = T.task_id AND M1.run_uuid=M2.run_uuid AND M2.run_uuid=M3.run_uuid AND R.dag_id=T.dag_id AND R.run_id=T.run_id
 
 mappingId	MLFlow-parameters
