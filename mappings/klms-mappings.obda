@@ -209,7 +209,7 @@ source          SELECT resource_id, attr_id FROM klms.attribute
 
 mappingId       Profile-attribute-info
 target          klms:attribute/{attr_id} dct:title {attr_name}; klms:type {type}; klms:missingRatio {missing_ratio}^^xsd:float; klms:uniqueness {uniqueness}^^xsd:float; klms:nestingLevel {nesting_level}^^xsd:integer .
-source          SELECT attr_id, attr_name, type, count, (1.0*num_missing/count) AS missing_ratio, uniqueness, nesting_level FROM klms.attribute
+source          SELECT attr_id, attr_name, type, count, (1.0*num_missing/(num_missing+count)) AS missing_ratio, uniqueness, nesting_level FROM klms.attribute
 
 mappingId       Profile-categorical-attribute
 target          klms:attribute/{attr_id} a klms:CategoricalAttribute; klms:frequencyDistribution klms:distribution/{frequency_distribution} . 
@@ -248,46 +248,45 @@ target          klms:distribution/{distr_id} a klms:CategoricalDistribution; klm
 source          SELECT distr_id, type, count, percentage FROM klms.categorical_distribution
 
 
-mappingId	Airflow-workflow
-target		klms:workflow/{dag_id} a klms:Workflow ; dct:title {dag_id}^^xsd:string ; dct:description {description}^^xsd:string ; klms:schedule {schedule_interval}^^xsd:string ; dct:creator klms:user/{user_id} ; klms:nextRun {next_dagrun} ; klms:hasParent {root_dag_id} .
-source		SELECT d.dag_id, d.description, u.id AS user_id, d.schedule_interval, next_dagrun, root_dag_id FROM airflow.dag d, public.user u WHERE d.owners=u.name
 
-mappingId	Airflow-workflow-execution
-target		klms:execution/{exec_id} a klms:WorkflowExecution ; dct:identifier {exec_id}^^xsd:string ; klms:instantiates klms:workflow/{dag_id} ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string .
-source		SELECT dag_id, CONCAT(dag_id, '_', run_id) AS exec_id, start_date, end_date, state FROM airflow.dag_run;
+mappingId	STELAR-workflow-execution
+target		klms:execution/{workflow_uuid} a klms:WorkflowExecution ; dct:identifier {workflow_uuid}^^xsd:string ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string .
+source		SELECT workflow_uuid, start_date, end_date, state FROM klms.workflow_execution
 
-mappingId	Airflow-task
-target		klms:task/{combo_task_id} a klms:Task ; dct:isPartOf klms:workflow/{dag_id}; dct:title {task_id}^^xsd:string .
-source		SELECT DISTINCT CONCAT(dag_id, '_', task_id) AS combo_task_id, task_id, dag_id FROM airflow.task_instance
+mappingId	STELAR-workflow-tags
+target		klms:execution/{workflow_uuid} klms:hasTags klms:kvpair/{workflow_uuid}/{key} . klms:kvpair/{workflow_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value} .
+source		SELECT workflow_uuid, key, value FROM klms.workflow_tag WHERE key NOT IN ('workflow_uuid','user')
 
+mappingId	STELAR-workflow-creator
+target		klms:execution/{workflow_uuid} dct:creator klms:user/{value} .
+source		SELECT workflow_uuid, value FROM klms.workflow_tag WHERE key='user' AND length(value)>0
 
-mappingId	MLFlow-task-instance
-target		klms:execution/{run_uuid} a klms:TaskExecution ; dct:identifier {run_uuid}^^xsd:string ; klms:instantiates klms:task/{combo_task_id} ; dct:isPartOf klms:execution/{exec_id} ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string .
-source		SELECT M1.run_uuid, CONCAT(T.dag_id, '_', T.task_id) AS combo_task_id, CONCAT(T.dag_id, '_', T.run_id) AS exec_id, T.start_date, T.end_date, T.state FROM mlflow.tags M1, mlflow.tags M2, mlflow.tags M3, airflow.dag_run R, airflow.task_instance T WHERE M1.key = 'run_id' AND M1.value = R.run_id AND M2.key = 'dag_id' AND M2.value = R.dag_id AND M3.key = 'task_id' AND M3.value = T.task_id AND M1.run_uuid=M2.run_uuid AND M2.run_uuid=M3.run_uuid AND R.dag_id=T.dag_id AND R.run_id=T.run_id
+mappingId	STELAR-task-execution
+target		klms:execution/{task_uuid} a klms:TaskExecution ; dct:identifier {task_uuid}^^xsd:string ; dct:isPartOf klms:execution/{workflow_uuid} ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string .
+source		SELECT task_uuid, workflow_uuid, start_date, end_date, state FROM klms.task_execution
 
-mappingId	MLFlow-parameters
-target		klms:execution/{run_uuid} klms:hasParameters klms:kvpair/{run_uuid}/{key} . klms:kvpair/{run_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value} .
-source		SELECT run_uuid, key, value FROM mlflow.params
+mappingId	STELAR-task-parameters
+target		klms:execution/{task_uuid} klms:hasParameters klms:kvpair/{task_uuid}/{key} . klms:kvpair/{task_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value} .
+source		SELECT task_uuid, key, value FROM klms.parameters
 
-mappingId	MLFlow-metrics
-target		klms:execution/{run_uuid} klms:hasMetrics klms:kvpair/{run_uuid}/{key} . klms:kvpair/{run_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value}; dct:issued {timestamp}^^xsd:dateTime; klms:step {step} .
-source		SELECT run_uuid, key, value, timestamp, step FROM mlflow.metrics
+mappingId	STELAR-task-recommended-metrics
+target		klms:execution/{task_uuid} klms:hasMetrics klms:metric/{task_uuid}/{key} . klms:metric/{task_uuid}/{key} a klms:Metric; klms:{key} {value} ; dct:issued {issued}^^xsd:dateTime .
+source		SELECT task_uuid, key, value, issued FROM klms.metrics WHERE key IN ('absolute_error_score', 'max_error', 'mean_absolute_error', 'mean_squared_error', 'root_mean_squared_error', 'coefficient_determination', 'mean_absolute_percentage_error', 'mean_absolute_scaled_error', 'symmetric_mean_absolute_percentage_error', 'mean_directional_accuracy', 'accuracy', 'balanced_accuracy', 'precision', 'average_precision', 'recall', 'jaccard_score', 'f1_score', 'roc_auc_score', 'false_positive_rate', 'phi_coefficient', 'homogeneity_score', 'mutual_info_score', 'rand_score', 'completeness_score', 'fowlkes_mallows_score')
 
-mappingId	MLFlow-execution-tags
-target		klms:execution/{run_uuid} klms:hasTags klms:kvpair/{run_uuid}/{key} . klms:kvpair/{run_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value} .
-source		SELECT run_uuid, key, value FROM mlflow.tags WHERE key NOT IN ('dag_id','run_id','task_id','mlflow.user','input','output')
+mappingId	STELAR-task-general-metrics
+target		klms:execution/{task_uuid} klms:hasMetrics klms:kvpair/{task_uuid}/{key} . klms:kvpair/{task_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value}; dct:issued {issued}^^xsd:dateTime .
+source		SELECT task_uuid, key, value, issued FROM klms.metrics
 
-mappingId	MLFlow-execution-creator
-target		klms:execution/{run_uuid} dct:creator klms:user/{value} .
-source		SELECT run_uuid, value FROM mlflow.tags WHERE key='mlflow.user' AND length(value)>0
+mappingId	STELAR-task-tags
+target		klms:execution/{task_uuid} klms:hasTags klms:kvpair/{task_uuid}/{key} . klms:kvpair/{task_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value} .
+source		SELECT task_uuid, key, value FROM klms.task_tag WHERE key NOT IN ('workflow_uuid','task_uuid','user','input','output')
 
-mappingId	MLFlow-execution-input
-target		klms:execution/{run_uuid} klms:hasInput klms:resource/{resource_id}  .
-source		SELECT run_uuid, value AS resource_id FROM mlflow.params WHERE key='input' AND length(value)>0
+mappingId	STELAR-task-input
+target		klms:execution/{task_uuid} klms:hasInput klms:execution/{task_uuid}/input/{order_num} . klms:execution/{task_uuid}/input/{order_num} klms:orderNum {order_num}; klms:input klms:resource/{dataset_id} .
+source		SELECT task_uuid, order_num, dataset_id FROM klms.task_input
 
-mappingId	MLFlow-execution-output
-target		klms:execution/{run_uuid} klms:hasOutput klms:resource/{resource_id}  .
-source		SELECT run_uuid, value AS resource_id FROM mlflow.params WHERE key='output' AND length(value)>0
-
+mappingId	STELAR-task-output
+target		klms:execution/{task_uuid} klms:hasOutput klms:execution/{task_uuid}/output/{order_num} . klms:execution/{task_uuid}/output/{order_num} klms:orderNum {order_num}; klms:output klms:resource/{dataset_id} .
+source		SELECT task_uuid, order_num, dataset_id FROM klms.task_output
 
 ]]
