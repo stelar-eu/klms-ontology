@@ -48,12 +48,12 @@
 		<dct:title xml:lang="en">Model of Assets in Knowledge Lake Management System (KLMS)</dct:title>
         <rdfs:comment>Ontology of assets (datasets, workflows, users) in Knowledge Lake Management System (KLMS).</rdfs:comment>
 		<dct:created rdf:datatype="xsd:date">2023-03-01</dct:created>
-		<dct:modified rdf:datatype="xsd:date">2023-10-17</dct:modified>
+		<dct:modified rdf:datatype="xsd:date">2024-04-18</dct:modified>
         <dct:abstract xml:lang="en">This model is used for describing assets in Knowledge Lake Management System (KLMS) based on the Data Catalogue vocabulary (DCAT).</dct:abstract>
         <cc:attributionName xml:lang="en">STELAR project</cc:attributionName>
 		<vann:preferredNamespacePrefix>klms</vann:preferredNamespacePrefix>
 		<vann:preferredNamespaceUri rdf:resource="http://stelar-project.eu/klms#"/>
-        <owl:versionInfo xml:lang="en">0.1</owl:versionInfo>
+        <owl:versionInfo xml:lang="en">0.2</owl:versionInfo>
 		<dct:license>
           <rdf:Description rdf:about="https://www.apache.org/licenses/LICENSE-2.0">
             <dct:title>Apache License 2.0</dct:title>
@@ -181,6 +181,168 @@
 	
 
 
+    <!-- http://stelar-project.eu/klms#MetricsEnum -->
+
+    <rdfs:Datatype rdf:about="http://stelar-project.eu/klms#MetricEnum">
+        <rdfs:comment xml:lang="en">Enumeration of recommended metrics collected during or after a TaskExecution.</rdfs:comment>
+        <owl:equivalentClass>
+            <rdfs:Datatype>
+                <owl:oneOf>
+                    <rdf:Description>
+                    <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                    <rdf:first>absolute_error_score</rdf:first>
+                    <rdf:rest>
+                        <rdf:Description>
+                        <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                        <rdf:first>max_error</rdf:first>
+                        <rdf:rest>
+                            <rdf:Description>
+                            <rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+                            <rdf:first>mean_absolute_error</rdf:first>
+							<rdf:rest>
+								<rdf:Description>
+								<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+								<rdf:first>mean_squared_error</rdf:first>
+								<rdf:rest>
+									<rdf:Description>
+									<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+									<rdf:first>root_mean_squared_error</rdf:first>
+									<rdf:rest>
+										<rdf:Description>
+										<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+										<rdf:first>coefficient_determination</rdf:first>
+										<rdf:rest>
+											<rdf:Description>
+											<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+											<rdf:first>mean_absolute_percentage_error</rdf:first>
+											<rdf:rest>
+												<rdf:Description>
+												<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+												<rdf:first>mean_absolute_scaled_error</rdf:first>
+												<rdf:rest>
+													<rdf:Description>
+													<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+													<rdf:first>symmetric_mean_absolute_percentage_error</rdf:first>
+													<rdf:rest>
+														<rdf:Description>
+														<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+														<rdf:first>mean_directional_accuracy</rdf:first>
+														<rdf:rest>
+															<rdf:Description>
+															<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+															<rdf:first>accuracy</rdf:first>
+															<rdf:rest>
+																<rdf:Description>
+																<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+																<rdf:first>balanced_accuracy</rdf:first>
+																<rdf:rest>
+																	<rdf:Description>
+																	<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+																	<rdf:first>precision</rdf:first>
+																	<rdf:rest>
+																		<rdf:Description>
+																		<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+																		<rdf:first>average_precision</rdf:first>	
+																		<rdf:rest>
+																			<rdf:Description>
+																			<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+																			<rdf:first>recall</rdf:first>
+																			<rdf:rest>
+																				<rdf:Description>
+																				<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+																				<rdf:first>jaccard_score</rdf:first>
+																				<rdf:rest>
+																					<rdf:Description>
+																					<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+																					<rdf:first>f1_score</rdf:first>
+																					<rdf:rest>
+																						<rdf:Description>
+																						<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+																						<rdf:first>roc_auc_score</rdf:first>
+																						<rdf:rest>
+																							<rdf:Description>
+																							<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+																							<rdf:first>false_positive_rate</rdf:first>
+																							<rdf:rest>
+																								<rdf:Description>
+																								<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+																								<rdf:first>phi_coefficient</rdf:first>
+																								<rdf:rest>
+																									<rdf:Description>
+																									<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+																									<rdf:first>homogeneity_score</rdf:first>
+																									<rdf:rest>
+																										<rdf:Description>
+																											<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+																											<rdf:first>mutual_info_score</rdf:first>
+																											<rdf:rest>
+																												<rdf:Description>
+																												<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+																												<rdf:first>rand_score</rdf:first>
+																												<rdf:rest>
+																													<rdf:Description>
+																													<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+																													<rdf:first>completeness_score</rdf:first>
+																													<rdf:rest>
+																														<rdf:Description>
+																														<rdf:type rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#List"/>
+																														<rdf:first>fowlkes_mallows_score</rdf:first>
+																													    <rdf:rest rdf:resource="http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"/>
+																														</rdf:Description>
+																													</rdf:rest>
+																													</rdf:Description>
+																												</rdf:rest>
+																												</rdf:Description>
+																											</rdf:rest>
+																											</rdf:Description>
+																										</rdf:rest>
+																										</rdf:Description>
+																									</rdf:rest>
+																									</rdf:Description>
+																								</rdf:rest>
+																								</rdf:Description>
+																							</rdf:rest>
+																							</rdf:Description>
+																						</rdf:rest>
+																						</rdf:Description>
+																					</rdf:rest>
+																					</rdf:Description>
+																				</rdf:rest>
+																				</rdf:Description>
+																			</rdf:rest>
+																			</rdf:Description>
+																		</rdf:rest>
+																		</rdf:Description>
+																	</rdf:rest>
+								                                    </rdf:Description>
+																</rdf:rest>
+																</rdf:Description>
+															</rdf:rest>
+															</rdf:Description>
+														</rdf:rest>
+														</rdf:Description>
+													</rdf:rest>							
+													</rdf:Description>
+												</rdf:rest>                            
+												</rdf:Description>
+											</rdf:rest>
+											</rdf:Description>
+										</rdf:rest>
+										</rdf:Description>
+									</rdf:rest>
+									</rdf:Description>
+								</rdf:rest>
+								</rdf:Description>
+							</rdf:rest>
+							</rdf:Description>
+						</rdf:rest>
+						</rdf:Description>
+                </owl:oneOf>
+            </rdfs:Datatype>
+        </owl:equivalentClass>
+    </rdfs:Datatype>
+	
+	
 <!-- ####################################### -->
 <!-- ##===================================## -->
 <!-- ##==          PROPERTIES           ==## -->
@@ -764,7 +926,16 @@
 		  <rdfs:comment xml:lang="en">This property contains the value of a KeyValuePair.</rdfs:comment>
 	 </owl:DatatypeProperty> 
 	
-
+	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/issued"> 
+		  <vann:usageNote xml:lang="en">Optional property. This property contains the date of formal issuance of the KeyValuePair.</vann:usageNote>
+		  <dct:identifier>dct:issued</dct:identifier>
+		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#KeyValuePair"/>
+		  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+		  <rdfs:label xml:lang="en">KeyValuePair - issued date</rdfs:label>
+		  <rdfs:isDefinedBy rdf:resource="http://dublincore.org/documents/dcmi-terms/#terms-issued" />
+		  <rdfs:comment xml:lang="en">This property contains the date of formal issuance of the KeyValuePair. Typically used to associate timestamps with issued metrics.</rdfs:comment>
+	 </owl:DatatypeProperty>
+	 
 <!-- ====================================== --> 
 <!-- ==   Category - Properties    == --> 
 <!-- ====================================== --> 
@@ -803,7 +974,18 @@
 <!-- ============================================= -->
 <!-- ==    DISTRIBUTION (KLMS) - Properties     == -->
 <!-- ============================================= -->  
- 
+
+<!--  Distribution - identifier   -->
+	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/identifier"> 
+		  <vann:usageNote xml:lang="en">Optional property. This property contains the main identifier for the Distribution of a Dataset, e.g. a UUID or other unique identifier in the context of the Catalogue.</vann:usageNote>
+		  <dct:identifier>dct:identifier</dct:identifier>
+		  <rdfs:domain rdf:resource="http://www.w3.org/ns/dcat#Distribution"/>
+		  <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+		  <rdfs:label xml:lang="en">Distribution - identifier</rdfs:label>
+		  <dct:acrualPeriodicity rdf:resource="http://dublincore.org/documents/dcmi-terms/#terms-identifier" />
+		  <rdfs:comment xml:lang="en">This property contains the main identifier for the Distribution, e.g. a UUID or other unique identifier in the context of the Catalogue.</rdfs:comment>
+	 </owl:DatatypeProperty>
+	 
 <!--  Distribution - access URL   -->
 	 <owl:DatatypeProperty rdf:about="http://www.w3.org/ns/dcat#accessURL"> 
 		  <vann:usageNote xml:lang="en">Mandatory property.  This property contains a URL that gives access to a Distribution of the Dataset. The resource at the access URL may contain information about how to get the Dataset. </vann:usageNote>
@@ -1543,11 +1725,11 @@
 	
 <!-- klms:Distribution   -->
     <owl:Class rdf:about="http://stelar-project.eu/klms#Distribution">
-        <vann:usageNote xml:lang="en">Optional class. A DataProfile associated to a Dataset published or curated by a single agent.</vann:usageNote>
+        <vann:usageNote xml:lang="en">Optional class. A DataProfile or Resource associated to a Dataset published or curated by a single agent.</vann:usageNote>
         <dct:identifier>klms:Distribution</dct:identifier>
         <rdfs:label xml:lang="en">Distribution</rdfs:label>
-        <rdfs:comment xml:lang="en">The profiling information extracted from a Distribution of a Dataset.</rdfs:comment>
-        <vann:usageNote xml:lang="en">Optional class. The profiling information extracted from a Distribution of a Dataset.</vann:usageNote>
+        <rdfs:comment xml:lang="en">The data resource profiling information extracted from a Distribution of a Dataset.</rdfs:comment>
+        <vann:usageNote xml:lang="en">Optional class. The data resource or profiling information extracted from a Distribution of a Dataset.</vann:usageNote>
         <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/dcat#Distribution"/>
     </owl:Class>
 	
@@ -1597,10 +1779,19 @@
 <!-- ================================ -->
 
 
-
+ <!-- klms:RasterCollection   -->
+    <owl:Class rdf:about="http://stelar-project.eu/klms#RasterCollection">
+    	<vann:usageNote xml:lang="en">Optional class. A DataProfile associated to a Collection of Raster images published or curated by a single agent.</vann:usageNote>
+    	<dct:identifier>klms:RasterCollection</dct:identifier>
+    	<rdfs:label xml:lang="en">RasterCollection</rdfs:label>
+        <rdfs:comment xml:lang="en">The profiling information extracted from a Distribution of Raster Collection.</rdfs:comment>
+        <vann:usageNote xml:lang="en">Optional class. The profiling information extracted from a Distribution of a Raster Collection.</vann:usageNote>
+		<rdfs:subClassOf rdf:resource="http://stelar-project.eu/klms#Distribution"/>
+    </owl:Class>
+	
  <!-- klms:Raster   -->
     <owl:Class rdf:about="http://stelar-project.eu/klms#Raster">
-    	<vann:usageNote xml:lang="en">Optional class. A DataProfile associated to a Dataset published or curated by a single agent.</vann:usageNote>
+    	<vann:usageNote xml:lang="en">Optional class. A DataProfile associated to a Raster Dataset published or curated by a single agent.</vann:usageNote>
     	<dct:identifier>klms:Raster</dct:identifier>
     	<rdfs:label xml:lang="en">Raster</rdfs:label>
         <rdfs:comment xml:lang="en">The profiling information extracted from a Distribution of Raster Dataset.</rdfs:comment>
@@ -1620,7 +1811,7 @@
 	
  <!-- klms:Hierarchical   -->
     <owl:Class rdf:about="http://stelar-project.eu/klms#Hierarchical">
-    	<vann:usageNote xml:lang="en">Optional class. A textual-aware profile associated to a Dataset published or curated by a single agent.</vann:usageNote>
+    	<vann:usageNote xml:lang="en">Optional class. A profile associated to a Hierarchical Dataset published or curated by a single agent.</vann:usageNote>
     	<dct:identifier>klms:Hierarchical</dct:identifier>
     	<rdfs:label xml:lang="en">Hierarchical</rdfs:label>
         <rdfs:comment xml:lang="en">The profiling information extracted from a Distribution of a Hierarchical Dataset.</rdfs:comment>
@@ -1630,7 +1821,7 @@
 
 <!-- klms:RDFGraph   -->
     <owl:Class rdf:about="http://stelar-project.eu/klms#RDFGraph">
-        <vann:usageNote xml:lang="en">Optional class. Combined profile associated to the various texts of a Dataset published or curated by a single agent.</vann:usageNote>
+        <vann:usageNote xml:lang="en">Optional class. Combined profile associated to the various texts of a RDFGraph Dataset published or curated by a single agent.</vann:usageNote>
         <dct:identifier>klms:RDFGraph</dct:identifier>
         <rdfs:label xml:lang="en">RDFGraph</rdfs:label>
         <rdfs:comment xml:lang="en">The profiling information extracted from a Distribution of a RDFGraph Dataset.</rdfs:comment>
@@ -1638,6 +1829,16 @@
         <rdfs:subClassOf rdf:resource="http://stelar-project.eu/klms#Distribution"/>
     </owl:Class>
 
+<!-- klms:TextCollection   -->
+    <owl:Class rdf:about="http://stelar-project.eu/klms#Text">
+        <vann:usageNote xml:lang="en">Optional class. Profiles associated to the various texts in a Collection of Textual Datasets published or curated by a single agent.</vann:usageNote>
+        <dct:identifier>klms:TextCollection</dct:identifier>
+        <rdfs:label xml:lang="en">TextCollection</rdfs:label>
+        <rdfs:comment xml:lang="en">The profiling information extracted from a Distribution of a Collection of Textual Datasets.</rdfs:comment>
+        <vann:usageNote xml:lang="en">Optional class. The profiling information extracted from a Distribution of a Collection of Textual Datasets.</vann:usageNote>
+        <rdfs:subClassOf rdf:resource="http://stelar-project.eu/klms#Distribution"/>
+    </owl:Class>
+	
 <!-- klms:Text   -->
     <owl:Class rdf:about="http://stelar-project.eu/klms#Text">
         <vann:usageNote xml:lang="en">Optional class. Profiles associated to the various texts of a Dataset published or curated by a single agent.</vann:usageNote>
@@ -1780,38 +1981,33 @@
         <rdfs:comment xml:lang="en">An extra (custom) metadata item represented as a key/value pair.</rdfs:comment>
     </owl:Class>
 
- <!-- klms:Workflow   -->
-    <owl:Class rdf:about="http://stelar-project.eu/klms#Workflow">
-    	<vann:usageNote xml:lang="en">Recommended class. A workflow defined by a User and involving at least one task.</vann:usageNote>
-    	<dct:identifier>klms:Workflow</dct:identifier>
-    	<rdfs:label xml:lang="en">Workflow</rdfs:label>
-        <rdfs:comment xml:lang="en">A workflow defined by a User and involving at least one task. It can be invoked ad-hoc by a user or scheduled to run (e.g., hourly, daily, etc.), each resulting in an instance of WorkflowExecution.</rdfs:comment>
-    </owl:Class>
 
  <!-- klms:WorkflowExecution   -->
     <owl:Class rdf:about="http://stelar-project.eu/klms#WorkflowExecution">
-    	<vann:usageNote xml:lang="en">Recommended class. An instance of a workflow defined by a User.</vann:usageNote>
+    	<vann:usageNote xml:lang="en">Recommended class. An instance of a workflow executed by a User.</vann:usageNote>
     	<dct:identifier>klms:WorkflowExecution</dct:identifier>
     	<rdfs:label xml:lang="en">WorkflowExecution</rdfs:label>
-        <rdfs:comment xml:lang="en">An instance of a workflow defined by a User. .</rdfs:comment>
+        <rdfs:comment xml:lang="en">An instance of a workflow executed by a User. .</rdfs:comment>
     </owl:Class>
 	
- <!-- klms:Task   -->
-    <owl:Class rdf:about="http://stelar-project.eu/klms#Task">
-    	<vann:usageNote xml:lang="en">Recommended class. A task respresent a processing job that takes some input and produces some output within a workflow.</vann:usageNote>
-    	<dct:identifier>klms:Task</dct:identifier>
-    	<rdfs:label xml:lang="en">Task</rdfs:label>
-        <rdfs:comment xml:lang="en">A task respresent a processing job that takes some input and produces some output within a workflow. An instance of a WorkflowExecution creates a new instance of this task.</rdfs:comment>
-    </owl:Class>
 	
  <!-- klms:TaskExecution   -->
     <owl:Class rdf:about="http://stelar-project.eu/klms#TaskExecution">
-    	<vann:usageNote xml:lang="en">Recommended class. An instance of a task running within a workflow execution.</vann:usageNote>
+    	<vann:usageNote xml:lang="en">Recommended class. An instance of a processing task running within a workflow execution.</vann:usageNote>
     	<dct:identifier>klms:TaskExecution</dct:identifier>
     	<rdfs:label xml:lang="en">TaskExecution</rdfs:label>
-        <rdfs:comment xml:lang="en">An instance of a task running within a workflow execution. Parameters, tags, and metrics are recorded for each task execution.</rdfs:comment>
+        <rdfs:comment xml:lang="en">An instance of a processing task running within a workflow execution. Parameters, tags, and metrics are recorded for each task execution.</rdfs:comment>
     </owl:Class>
 	
+
+ <!-- klms:Artifact   -->
+    <owl:Class rdf:about="http://stelar-project.eu/klms#Artifact">
+    	<vann:usageNote xml:lang="en">Recommended class. An instance of an artifact (input/output dataset) in a task execution.</vann:usageNote>
+    	<dct:identifier>klms:Artifact</dct:identifier>
+    	<rdfs:label xml:lang="en">Artifact</rdfs:label>
+        <rdfs:comment xml:lang="en">An instance of a an artifact (input/output dataset) in a task execution.</rdfs:comment>
+    </owl:Class>
+
 	
 <!-- ################################################# -->
 <!-- ##=============================================## -->
@@ -1819,14 +2015,14 @@
 <!-- ##=============================================## --> 
 <!-- ################################################# -->
  
-<!--  Attribute - contains  -->
+<!--  Attribute / RasterCollection/ TextCollection - contains  -->
     <owl:ObjectProperty rdf:about="http://stelar-project.eu/klms#contains">
 		<rdfs:label xml:lang="en">Contains</rdfs:label>
         <dct:identifier>klms:contains</dct:identifier>
         <vann:usageNote xml:lang="en">Optional property. This property is used to indicate a contains relation among classes.</vann:usageNote>
         <rdfs:comment xml:lang="en">This property is used to indicate a contains relation among classes.</rdfs:comment>
     </owl:ObjectProperty>
-
+	
 <!--  NumericalDistribution - depth distribution  -->
     <owl:ObjectProperty rdf:about="http://stelar-project.eu/klms#depthDistribution">
         <rdfs:label xml:lang="en">NumericalDistribution - Depth distribution</rdfs:label>
@@ -1978,75 +2174,26 @@
     </owl:ObjectProperty>
 
 
- <!--  Workflow - creator  -->
-	 <owl:ObjectProperty rdf:about="http://purl.org/dc/terms/creator"> 
-		  <vann:usageNote xml:lang="en">Optional property. This property refers to the User that created this Workflow.</vann:usageNote>
-		  <dct:identifier>dct:creator</dct:identifier>
-		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#Workflow"/>
-		  <rdfs:range rdf:resource="http://stelar-project.eu/klms#User"/>
-		  <rdfs:label xml:lang="en">Workflow - creator</rdfs:label>
-		  <rdfs:comment xml:lang="en">This property refers to the User that created this Workflow.</rdfs:comment>
-	 </owl:ObjectProperty>
-
- <!--  Workflow - hasParent  -->
-	 <owl:ObjectProperty rdf:about="http://stelar-project.eu/klms#hasParent"> 
-		  <vann:usageNote xml:lang="en">Optional property. This property indicates the Workflow that spawned the current Workflow.</vann:usageNote>
-		  <dct:identifier>klms:hasParent</dct:identifier>
-		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#Workflow"/>
-		  <rdfs:range rdf:resource="http://stelar-project.eu/klms#Workflow"/>
-		  <rdfs:label xml:lang="en">Workflow - hasParent</rdfs:label>
-		  <rdfs:comment xml:lang="en">This property indicates the Workflow that spawned (is parent of) the current Workflow.</rdfs:comment>
-	 </owl:ObjectProperty>
-	 
- <!--  Workflow - description  -->
-	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/description"> 
-		  <vann:usageNote xml:lang="en">Recommended property. This property contains a free-text description of the Workflow.</vann:usageNote>
-		  <dct:identifier>dct:description</dct:identifier>
-		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#Workflow"/>
-		  <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
-		  <rdfs:label xml:lang="en">Workflow - description</rdfs:label>
-		  <rdfs:comment xml:lang="en">This property contains a free-text description of the Workflow.</rdfs:comment>
-	 </owl:DatatypeProperty>
- 
-<!--  Workflow - title  -->
-	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/title"> 
-		  <vann:usageNote xml:lang="en">Recommended property. This property contains a name given to the Workflow.</vann:usageNote>
-		  <dct:identifier>dct:title</dct:identifier>
-		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#Workflow"/>
-		  <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
-		  <rdfs:label xml:lang="en">Workflow - title</rdfs:label>
-		  <rdfs:comment xml:lang="en">This property contains a name (title) given to the Workflow.</rdfs:comment>
-	 </owl:DatatypeProperty>
-
-<!--  Workflow - schedule  -->
-	 <owl:DatatypeProperty rdf:about="http://stelar-project.eu/klms#schedule"> 
-		  <vann:usageNote xml:lang="en">Optional property. This property denotes the schedule interval (e.g., hourly, daily) for executing this Workflow.</vann:usageNote>
-		  <dct:identifier>klms:schedule</dct:identifier>
-		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#Workflow"/>
-		  <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
-		  <rdfs:label xml:lang="en">Workflow - schedule</rdfs:label>
-		  <rdfs:comment xml:lang="en">This property denotes the schedule interval (e.g., hourly, daily) for executing this Workflow.</rdfs:comment>
-	 </owl:DatatypeProperty>
-	 
-<!--  Workflow - nextRun  -->
-	 <owl:DatatypeProperty rdf:about="http://stelar-project.eu/klms#nextRun"> 
-		  <vann:usageNote xml:lang="en">Optional property. This property denotes the next time when the Workflow is scheduled to run again.</vann:usageNote>
-		  <dct:identifier>klms:nextRun</dct:identifier>
-		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#Workflow"/>
-		  <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
-		  <rdfs:label xml:lang="en">Workflow - nextRun</rdfs:label>
-		  <rdfs:comment xml:lang="en">This property denotes the next time when the Workflow is scheduled to run again.</rdfs:comment>
-	 </owl:DatatypeProperty>
-	 
- <!--  WorkflowExecution - instantiates -->
-	 <rdf:ObjectProperty rdf:about="http://stelar-project.eu/klms#instantiates"> 
-		  <vann:usageNote xml:lang="en">Recommended property. This property denotes that a WorkflowExecution is an instance of Workflow.</vann:usageNote>
-		  <dct:identifier>klms:instantiates</dct:identifier>
-		  <rdfs:label xml:lang="en">WorkflowExecution - instantiates</rdfs:label>
+<!--  WorkflowExecution - identifier   -->
+	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/identifier"> 
+		  <vann:usageNote xml:lang="en">Optional property. This property contains the main identifier for the WorkflowExecution, e.g. a UUID or other unique identifier in the context of the Catalogue.</vann:usageNote>
+		  <dct:identifier>dct:identifier</dct:identifier>
 		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#WorkflowExecution"/>
-		  <rdfs:range rdf:resource="http://stelar-project.eu/klms#Workflow"/>
-		  <rdfs:comment xml:lang="en">This property denotes that a WorkflowExecution is an instance of a Workflow.</rdfs:comment>
-	 </rdf:ObjectProperty>
+		  <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+		  <rdfs:label xml:lang="en">WorkflowExecution - identifier</rdfs:label>
+		  <dct:acrualPeriodicity rdf:resource="http://dublincore.org/documents/dcmi-terms/#terms-identifier" />
+		  <rdfs:comment xml:lang="en">This property contains the main identifier for the WorkflowExecution, e.g. a UUID or other unique identifier in the context of the Catalogue.</rdfs:comment>
+	 </owl:DatatypeProperty>
+	 
+ <!--  WorkflowExecution - creator  -->
+	 <owl:ObjectProperty rdf:about="http://purl.org/dc/terms/creator"> 
+		  <vann:usageNote xml:lang="en">Optional property. This property refers to the User that created this WorkflowExecution.</vann:usageNote>
+		  <dct:identifier>dct:creator</dct:identifier>
+		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#WorkflowExecution"/>
+		  <rdfs:range rdf:resource="http://stelar-project.eu/klms#User"/>
+		  <rdfs:label xml:lang="en">WorkflowExecution - creator</rdfs:label>
+		  <rdfs:comment xml:lang="en">This property refers to the User that created this WorkflowExecution.</rdfs:comment>
+	 </owl:ObjectProperty>
 
  <!--  WorkflowExecution - state -->
 	 <rdf:DatatypeProperty rdf:about="http://stelar-project.eu/klms#state"> 
@@ -2078,37 +2225,28 @@
 		  <rdfs:comment xml:lang="en">This property denotes the end time of a WorkflowExecution.</rdfs:comment>
 	 </owl:DatatypeProperty>
 
-<!--  Task - isPartOf  -->
-	 <rdf:ObjectProperty rdf:about="http://purl.org/dc/terms/isPartOf"> 
-		  <vann:usageNote xml:lang="en">Recommended property. This property refers to a Task that is involved in a Workflow.</vann:usageNote>
-		  <dct:identifier>dct:isPartOf</dct:identifier>
-		  <rdfs:label xml:lang="en">Task - is part of</rdfs:label>
-		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#Task"/>
-		  <rdfs:range rdf:resource="http://stelar-project.eu/klms#Workflow"/>
-		  <rdfs:isDefinedBy rdf:resource="http://dublincore.org/documents/dcmi-terms/#terms-isPartOf" />
-		  <rdfs:comment xml:lang="en">This property refers to a Task that is involved in a Workflow.</rdfs:comment>
-	 </rdf:ObjectProperty>
-	 
-<!--  Task - title  -->
-	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/title"> 
-		  <vann:usageNote xml:lang="en">Recommended property. This property contains a name given to the Task.</vann:usageNote>
-		  <dct:identifier>dct:title</dct:identifier>
-		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#Task"/>
-		  <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
-		  <rdfs:label xml:lang="en">Task - title</rdfs:label>
-		  <rdfs:comment xml:lang="en">This property contains a name (title) given to the Task.</rdfs:comment>
-	 </owl:DatatypeProperty>
+<!-- WorkflowExecution - tags -->
+    <owl:ObjectProperty rdf:about="http://stelar-project.eu/klms#hasTags">
+		<vann:usageNote xml:lang="en">Optional property. This property links a WorkflowExecution with one or more tags, each represented as a key/value pair.</vann:usageNote>
+		<dct:identifier>klms:hasTags</dct:identifier>
+		<rdfs:label xml:lang="en">WorkflowExecution - hasTags</rdfs:label>
+        <rdfs:domain rdf:resource="http://stelar-project.eu/klms#WorkflowExecution"/>
+        <rdfs:range rdf:resource="http://stelar-project.eu/klms#KeyValuePair"/>
+        <rdfs:comment xml:lang="en">A tag associated with a WorkflowExecution and represented as key/value pair.</rdfs:comment>
+    </owl:ObjectProperty>
+	
 
-<!--  TaskExecution - instantiates -->
-	 <rdf:ObjectProperty rdf:about="http://stelar-project.eu/klms#instantiates"> 
-		  <vann:usageNote xml:lang="en">Recommended property. This property denotes that a TaskExecution is an instance of a Task defined in a Workflow.</vann:usageNote>
-		  <dct:identifier>klms:instantiates</dct:identifier>
-		  <rdfs:label xml:lang="en">TaskExecution - instantiates</rdfs:label>
+<!--  TaskExecution - identifier   -->
+	 <owl:DatatypeProperty rdf:about="http://purl.org/dc/terms/identifier"> 
+		  <vann:usageNote xml:lang="en">Optional property. This property contains the main identifier for the TaskExecution, e.g. a UUID or other unique identifier in the context of the Catalogue.</vann:usageNote>
+		  <dct:identifier>dct:identifier</dct:identifier>
 		  <rdfs:domain rdf:resource="http://stelar-project.eu/klms#TaskExecution"/>
-		  <rdfs:range rdf:resource="http://stelar-project.eu/klms#Task"/>
-		  <rdfs:comment xml:lang="en">This property denotes that a TaskExecution is an instance of a Task defined in a Workflow.</rdfs:comment>
-	 </rdf:ObjectProperty>
-
+		  <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+		  <rdfs:label xml:lang="en">TaskExecution - identifier</rdfs:label>
+		  <dct:acrualPeriodicity rdf:resource="http://dublincore.org/documents/dcmi-terms/#terms-identifier" />
+		  <rdfs:comment xml:lang="en">This property contains the main identifier for the TaskExecution, e.g. a UUID or other unique identifier in the context of the Catalogue.</rdfs:comment>
+	 </owl:DatatypeProperty>
+	 
 <!--  TaskExecution - isPartOf  -->
 	 <rdf:ObjectProperty rdf:about="http://purl.org/dc/terms/isPartOf"> 
 		  <vann:usageNote xml:lang="en">Recommended property. This property refers to a TaskExecution that is involved in a WorkflowExecution.</vann:usageNote>
@@ -2182,22 +2320,22 @@
 
 <!-- TaskExecution - input -->
     <owl:ObjectProperty rdf:about="http://stelar-project.eu/klms#hasInput">
-		<vann:usageNote xml:lang="en">Optional property. This property links a TaskExecution with one or more Distributions used as its input.</vann:usageNote>
+		<vann:usageNote xml:lang="en">Optional property. This property links a TaskExecution with one or more Artifacts used as its input.</vann:usageNote>
 		<dct:identifier>klms:hasInput</dct:identifier>
 		<rdfs:label xml:lang="en">TaskExecution - hasInput</rdfs:label>
         <rdfs:domain rdf:resource="http://stelar-project.eu/klms#TaskExecution"/>
-        <rdfs:range rdf:resource="http://stelar-project.eu/klms#Distribution"/>
-        <rdfs:comment xml:lang="en">This property links a TaskExecution with one or more Distributions used as its input.</rdfs:comment>
+        <rdfs:range rdf:resource="http://stelar-project.eu/klms#Artifact"/>
+        <rdfs:comment xml:lang="en">This property links a TaskExecution with one or more Artifacts used as its input.</rdfs:comment>
     </owl:ObjectProperty>
 
 <!-- TaskExecution - output -->
     <owl:ObjectProperty rdf:about="http://stelar-project.eu/klms#hasOutput">
-		<vann:usageNote xml:lang="en">Optional property. This property links a TaskExecution with one or more output Distributions (i.e., datasets derived by this execution).</vann:usageNote>
+		<vann:usageNote xml:lang="en">Optional property. This property links a TaskExecution with one or more output Artifacts (i.e., datasets derived by this execution).</vann:usageNote>
 		<dct:identifier>klms:hasOutput</dct:identifier>
 		<rdfs:label xml:lang="en">TaskExecution - hasOutput</rdfs:label>
         <rdfs:domain rdf:resource="http://stelar-project.eu/klms#TaskExecution"/>
-        <rdfs:range rdf:resource="http://stelar-project.eu/klms#Distribution"/>
-        <rdfs:comment xml:lang="en">This property links a TaskExecution with one or more output Distributions (i.e., datasets derived by this execution).</rdfs:comment>
+        <rdfs:range rdf:resource="http://stelar-project.eu/klms#Artifact"/>
+        <rdfs:comment xml:lang="en">This property links a TaskExecution with one or more output Artifacts (i.e., datasets derived by this execution).</rdfs:comment>
     </owl:ObjectProperty>
 
  <!--  TaskExecution - creator  -->
@@ -2209,7 +2347,38 @@
 		  <rdfs:label xml:lang="en">TaskExecution - creator</rdfs:label>
 		  <rdfs:comment xml:lang="en">This property refers to the User that triggered this TaskExecution instance.</rdfs:comment>
 	 </owl:ObjectProperty>
-	 
+
+<!-- Artifact - input -->
+    <owl:ObjectProperty rdf:about="http://stelar-project.eu/klms#input">
+		<vann:usageNote xml:lang="en">Optional property. This property links an Artifact with a Distribution (i.e., dataset) given as input to a TaskExecution.</vann:usageNote>
+		<dct:identifier>klms:input</dct:identifier>
+		<rdfs:label xml:lang="en">Artifact - input</rdfs:label>
+        <rdfs:domain rdf:resource="http://stelar-project.eu/klms#Artifact"/>
+        <rdfs:range rdf:resource="http://stelar-project.eu/klms#Distribution"/>
+        <rdfs:comment xml:lang="en">This property links an Artifact with a Distribution (i.e., dataset) given as input to a TaskExecution.</rdfs:comment>
+    </owl:ObjectProperty>
+
+<!-- Artifact - output -->
+    <owl:ObjectProperty rdf:about="http://stelar-project.eu/klms#output">
+		<vann:usageNote xml:lang="en">Optional property. This property links an Artifact with a Distribution (i.e., dataset) issued as input from a TaskExecution.</vann:usageNote>
+		<dct:identifier>klms:output</dct:identifier>
+		<rdfs:label xml:lang="en">Artifact - output</rdfs:label>
+        <rdfs:domain rdf:resource="http://stelar-project.eu/klms#Artifact"/>
+        <rdfs:range rdf:resource="http://stelar-project.eu/klms#Distribution"/>
+        <rdfs:comment xml:lang="en">This property links an Artifact with a Distribution (i.e., dataset) issued as input from a TaskExecution.</rdfs:comment>
+    </owl:ObjectProperty>
+
+<!-- Artifact - orderNum -->
+    <owl:ObjectProperty rdf:about="http://stelar-project.eu/klms#orderNum">
+		<vann:usageNote xml:lang="en">Optional property. This property indicates the ordering (1:first, 2:second, etc.) of an Artifact involved as input or output in a TaskExecution.</vann:usageNote>
+		<dct:identifier>klms:orderNum</dct:identifier>
+		<rdfs:label xml:lang="en">Artifact - orderNum</rdfs:label>
+        <rdfs:domain rdf:resource="http://stelar-project.eu/klms#Artifact"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#int"/>
+        <rdfs:comment xml:lang="en">This property indicates the ordering (1:first, 2:second, etc.) of an Artifact involved as input or output in a TaskExecution.</rdfs:comment>
+    </owl:ObjectProperty>
+
+	
 <!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
 
 </rdf:RDF>
