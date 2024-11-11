@@ -140,7 +140,7 @@ source          SELECT r.id, r.name, r.description, r.url, r.size, r.format, r.m
 
 mappingId       Resource-tags
 target          klms:resource/{id} dcat:keyword {tag}^^xsd:string .
-source          SELECT id, trim(tag::text, '"') AS tag FROM (SELECT r.id, json_array_elements(r.extras::json->'resource_tags') AS tag FROM resource r, package p WHERE r.package_id=p.id AND is_valid_json(r.extras) AND p.state='active' AND r.state='active') a
+source          SELECT id, trim(tag::text, '"') AS tag FROM (SELECT r.id, json_array_elements(r.extras::json->'resource_tags') AS tag FROM resource r, package p WHERE r.package_id=p.id AND r.extras IS NOT NULL AND is_valid_json(r.extras) AND json_typeof(r.extras::json->'resource_tags') = 'array' AND p.state='active' AND r.state='active') a
 
 mappingId       Resource-language-list
 target          klms:resource/{id} dct:language {lang}^^xsd:string .
