@@ -283,7 +283,7 @@ source		SELECT task_uuid, key, value FROM klms.task_tag WHERE key NOT IN ('workf
 
 mappingId	STELAR-task-input
 target		klms:execution/{task_uuid} klms:hasInput klms:execution/{task_uuid}/input/{order_num} . klms:execution/{task_uuid}/input/{order_num} a klms:Artifact; klms:orderNum {order_num}; klms:input klms:resource/{resource_id} .
-source		SELECT task_uuid, order_num, resource_id FROM klms.task_input WHERE klms.resource_id IS NOT NULL
+source		SELECT task_uuid, order_num, resource_id FROM klms.task_input WHERE resource_id IS NOT NULL
 
 mappingId	STELAR-task-output
 target		klms:execution/{task_uuid} klms:hasOutput klms:execution/{task_uuid}/output/{order_num} . klms:execution/{task_uuid}/output/{order_num} a klms:Artifact; klms:orderNum {order_num}; klms:output klms:resource/{dataset_id} .
