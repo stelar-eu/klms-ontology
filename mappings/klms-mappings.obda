@@ -281,12 +281,4 @@ mappingId	STELAR-task-tags
 target		klms:execution/{task_uuid} klms:hasTags klms:kvpair/{task_uuid}/{key} . klms:kvpair/{task_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value} .
 source		SELECT task_uuid, key, value FROM klms.task_tag WHERE key NOT IN ('workflow_uuid','task_uuid','user','input','output')
 
-mappingId	STELAR-task-input
-target		klms:execution/{task_uuid} klms:hasInput klms:execution/{task_uuid}/input/{order_num} . klms:execution/{task_uuid}/input/{order_num} a klms:Artifact; klms:orderNum {order_num}; klms:input klms:resource/{dataset_id} .
-source		SELECT task_uuid, order_num, dataset_id FROM klms.task_input
-
-mappingId	STELAR-task-output
-target		klms:execution/{task_uuid} klms:hasOutput klms:execution/{task_uuid}/output/{order_num} . klms:execution/{task_uuid}/output/{order_num} a klms:Artifact; klms:orderNum {order_num}; klms:output klms:resource/{dataset_id} .
-source		SELECT task_uuid, order_num, dataset_id FROM klms.task_output
-
 ]]
