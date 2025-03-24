@@ -265,9 +265,9 @@ mappingId	STELAR-task-execution
 target		klms:execution/{task_uuid} a klms:TaskExecution ; dct:identifier {task_uuid}^^xsd:string ; dct:isPartOf klms:execution/{workflow_uuid} ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string .
 source		SELECT task_uuid, workflow_uuid, start_date, end_date, state FROM klms.task_execution
 
-mappingId	STELAR-task-parameters
-target		klms:execution/{task_uuid} klms:hasParameters klms:kvpair/{task_uuid}/{key} . klms:kvpair/{task_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value} .
-source		SELECT task_uuid, key, value FROM klms.parameters
+;mappingId	STELAR-task-parameters
+;target		klms:execution/{task_uuid} klms:hasParameters klms:kvpair/{task_uuid}/{key} . klms:kvpair/{task_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value} .
+;source		SELECT task_uuid, key, value FROM klms.parameters
 
 mappingId	STELAR-task-recommended-metrics
 target		klms:execution/{task_uuid} klms:hasMetrics klms:metric/{task_uuid}/{key} . klms:metric/{task_uuid}/{key} a klms:Metric; klms:{key} {value} ; dct:issued {issued}^^xsd:dateTime .
