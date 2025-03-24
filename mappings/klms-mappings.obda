@@ -251,7 +251,7 @@ source          SELECT distr_id, type, count, percentage FROM klms.categorical_d
 
 mappingId	STELAR-workflow-execution
 target		klms:execution/{workflow_uuid} a klms:WorkflowExecution ; dct:identifier {workflow_uuid}^^xsd:string ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string .
-source		SELECT workflow_uuid, start_date, end_date, state FROM klms.workflow_execution
+source		SELECT workflow_uuid, start_date, end_date, state FROM klms.workflow_execution WHERE ontop_user()='admin'
 
 mappingId	STELAR-workflow-tags
 target		klms:execution/{workflow_uuid} klms:hasTags klms:kvpair/{workflow_uuid}/{key} . klms:kvpair/{workflow_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value} .
