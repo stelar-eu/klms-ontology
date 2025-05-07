@@ -38,7 +38,7 @@ source          SELECT id as member_id, group_id AS org_id, table_id AS user_id,
 
 mappingId       Dataset-basic
 target          klms:dataset/{id} a dcat:Dataset ; dct:identifier {id}^^xsd:string ; dct:title {title}^^xsd:string ; dct:description {notes}^^xsd:string ; owl:versionInfo {version}; dct:type {type}; dct:license {license_id}; dct:creator klms:user/{creator_user_id}; dct:publisher klms:organization/{owner_org}; dcat:landingPage {url} .
-source          SELECT id, title, notes, version, type, license_id, owner_org, creator_user_id, url FROM package INNER JOIN get_accessible_packages(ontop_user(), ontop_user_role()) as access ON access.id=package.id WHERE state='active'
+source          SELECT id, title, notes, version, type, license_id, owner_org, creator_user_id, url FROM package INNER JOIN get_accessible_packages(ontop_user(), 'curator') as access ON access.id=package.id WHERE state='active'
 
 mappingId       Dataset-tags
 target          klms:dataset/{package_id} dcat:keyword {tag} .
