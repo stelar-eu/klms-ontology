@@ -46,7 +46,7 @@ source          SELECT r.package_id, t.name AS tag FROM package p, package_tag r
 
 mappingId       Dataset-theme-list
 target          klms:dataset/{id} dcat:theme {theme}^^xsd:string .
-source          SELECT a.id, trim(a.theme::text, '"') AS theme FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS theme FROM package p JOIN package_extra e ON e.package_id = p.id WHERE e.key='theme' AND is_valid_json(e.value) AND p.state='active') a;
+source          SELECT a.id, trim(a.theme::text, '"') AS theme FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS theme FROM package p JOIN package_extra e ON e.package_id = p.id WHERE e.key='theme' AND is_valid_json(e.value) AND p.state='active') a
 
 mappingId       Dataset-alternate-identifier
 target          klms:dataset/{id} adms:identifier {value} .
@@ -62,7 +62,7 @@ source          SELECT p.id, (CASE WHEN e.key='modified' THEN e.value ELSE p.met
 
 mappingId       Dataset-language-list
 target          klms:dataset/{id} dct:language {lang}^^xsd:string .
-source          SELECT a.id, trim(a.lang::text, '"') AS lang FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS lang FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='language' AND is_valid_json(e.value) AND p.state='active') a;
+source          SELECT a.id, trim(a.lang::text, '"') AS lang FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS lang FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='language' AND is_valid_json(e.value) AND p.state='active') a
 
 mappingId       Dataset-frequency
 target          klms:dataset/{id} dct:accrualPeriodicity {value} .
@@ -70,7 +70,7 @@ source          SELECT p.id, e.value FROM package p, package_extra e WHERE e.pac
 
 mappingId       Dataset-conforms-to-list
 target          klms:dataset/{id} dct:conformsTo {conform}^^xsd:string .
-source          SELECT a.id, trim(a.conform::text, '"') AS conform FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS conform FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='conforms_to' AND is_valid_json(e.value) AND p.state='active') a;
+source          SELECT a.id, trim(a.conform::text, '"') AS conform FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS conform FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='conforms_to' AND is_valid_json(e.value) AND p.state='active') a
 
 mappingId       Dataset-access-rights
 target          klms:dataset/{id} dct:accessRights {access}^^xsd:string .
@@ -78,7 +78,7 @@ source          SELECT p.id, (CASE WHEN e.key='access_rights' THEN e.value WHEN 
 
 mappingId       Dataset-documentation-list
 target          klms:dataset/{id} foaf:page {doc}^^xsd:anyUri .
-source          SELECT p.id, trim((e.value::jsonb)::text, '"') AS doc FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='documentation' AND is_valid_json(e.value) AND p.state='active';
+source          SELECT p.id, trim((e.value::jsonb)::text, '"') AS doc FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='documentation' AND is_valid_json(e.value) AND p.state='active'
 
 mappingId       Dataset-provenance
 target          klms:dataset/{id} dct:provenance {value} .
@@ -90,11 +90,11 @@ source          SELECT p.id, e.value FROM package p, package_extra e WHERE e.pac
 
 mappingId       Dataset-has-version-list
 target          klms:dataset/{id} dct:hasVersion {ver}^^xsd:anyUri .
-source          SELECT a.id, trim(a.ver::text, '"') AS ver FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS ver FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='has_version' AND is_valid_json(e.value) AND p.state='active') a;
+source          SELECT a.id, trim(a.ver::text, '"') AS ver FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS ver FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='has_version' AND is_valid_json(e.value) AND p.state='active') a
 
 mappingId       Dataset-is-version-of-list
 target          klms:dataset/{id} dct:isVersionOf {ver}^^xsd:anyUri .
-source          SELECT a.id, trim(a.ver::text, '"') AS ver FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS ver FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='is_version_of' AND is_valid_json(e.value) AND p.state='active') a;
+source          SELECT a.id, trim(a.ver::text, '"') AS ver FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS ver FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='is_version_of' AND is_valid_json(e.value) AND p.state='active') a
 
 mappingId       Dataset-contact-point
 target          klms:dataset/{id} dcat:contactPoint klms:user/{creator_user_id} . klms:user/{creator_user_id} a vcard:Individual; vcard:fn {contact_name} ; vcard:hasEmail {contact_email} .
