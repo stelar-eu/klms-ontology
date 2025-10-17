@@ -46,7 +46,7 @@ source          SELECT r.package_id, t.name AS tag FROM package p, package_tag r
 
 mappingId       Dataset-theme-list
 target          klms:dataset/{id} dcat:theme {theme}^^xsd:string .
-source          SELECT id, trim(theme::text, '"') AS theme FROM (SELECT p.id, json_array_elements(e.value::json) AS theme FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='theme' AND is_valid_json(e.value) AND p.state='active') a
+source          SELECT a.id, trim(a.theme::text, '"') AS theme FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS theme FROM package p JOIN package_extra e ON e.package_id = p.id WHERE e.key='theme' AND is_valid_json(e.value) AND p.state='active') a;
 
 mappingId       Dataset-alternate-identifier
 target          klms:dataset/{id} adms:identifier {value} .
@@ -62,7 +62,7 @@ source          SELECT p.id, (CASE WHEN e.key='modified' THEN e.value ELSE p.met
 
 mappingId       Dataset-language-list
 target          klms:dataset/{id} dct:language {lang}^^xsd:string .
-source          SELECT id, trim(lang::text, '"') AS lang FROM (SELECT p.id, json_array_elements(e.value::json) AS lang FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='language' AND is_valid_json(e.value) AND p.state='active') a
+source          SELECT a.id, trim(a.lang::text, '"') AS lang FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS lang FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='language' AND is_valid_json(e.value) AND p.state='active') a;
 
 mappingId       Dataset-frequency
 target          klms:dataset/{id} dct:accrualPeriodicity {value} .
@@ -70,7 +70,7 @@ source          SELECT p.id, e.value FROM package p, package_extra e WHERE e.pac
 
 mappingId       Dataset-conforms-to-list
 target          klms:dataset/{id} dct:conformsTo {conform}^^xsd:string .
-source          SELECT id, trim(conform::text, '"') AS conform FROM (SELECT p.id, json_array_elements(e.value::json) AS conform FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='conforms_to' AND is_valid_json(e.value) AND p.state='active') a
+source          SELECT a.id, trim(a.conform::text, '"') AS conform FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS conform FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='conforms_to' AND is_valid_json(e.value) AND p.state='active') a;
 
 mappingId       Dataset-access-rights
 target          klms:dataset/{id} dct:accessRights {access}^^xsd:string .
@@ -78,7 +78,7 @@ source          SELECT p.id, (CASE WHEN e.key='access_rights' THEN e.value WHEN 
 
 mappingId       Dataset-documentation-list
 target          klms:dataset/{id} foaf:page {doc}^^xsd:anyUri .
-source          SELECT id, trim(doc::text, '"') AS doc FROM (SELECT p.id, json_array_elements(e.value::json) AS doc FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='documentation' AND is_valid_json(e.value) AND p.state='active') a
+source          SELECT p.id, trim((e.value::jsonb)::text, '"') AS doc FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='documentation' AND is_valid_json(e.value) AND p.state='active';
 
 mappingId       Dataset-provenance
 target          klms:dataset/{id} dct:provenance {value} .
@@ -90,11 +90,11 @@ source          SELECT p.id, e.value FROM package p, package_extra e WHERE e.pac
 
 mappingId       Dataset-has-version-list
 target          klms:dataset/{id} dct:hasVersion {ver}^^xsd:anyUri .
-source          SELECT id, trim(ver::text, '"') AS ver FROM (SELECT p.id, json_array_elements(e.value::json) AS ver FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='has_version' AND is_valid_json(e.value) AND p.state='active') a
+source          SELECT a.id, trim(a.ver::text, '"') AS ver FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS ver FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='has_version' AND is_valid_json(e.value) AND p.state='active') a;
 
 mappingId       Dataset-is-version-of-list
 target          klms:dataset/{id} dct:isVersionOf {ver}^^xsd:anyUri .
-source          SELECT id, trim(ver::text, '"') AS ver FROM (SELECT p.id, json_array_elements(e.value::json) AS ver FROM package p, package_extra e WHERE e.package_id=p.id AND e.key='is_version_of' AND is_valid_json(e.value) AND p.state='active') a
+source          SELECT a.id, trim(a.ver::text, '"') AS ver FROM (SELECT p.id, jsonb_array_elements_text(replace(trim(e.value, '"'), '''', '"')::jsonb) AS ver FROM package p JOIN package_extra e ON e.package_id=p.id WHERE e.key='is_version_of' AND is_valid_json(e.value) AND p.state='active') a;
 
 mappingId       Dataset-contact-point
 target          klms:dataset/{id} dcat:contactPoint klms:user/{creator_user_id} . klms:user/{creator_user_id} a vcard:Individual; vcard:fn {contact_name} ; vcard:hasEmail {contact_email} .
@@ -248,38 +248,45 @@ target          klms:distribution/{distr_id} a klms:CategoricalDistribution; klm
 source          SELECT distr_id, type, count, percentage FROM klms.categorical_distribution
 
 
-
 mappingId	STELAR-workflow-execution
-target		klms:execution/{workflow_uuid} a klms:WorkflowExecution ; dct:identifier {workflow_uuid}^^xsd:string ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string .
-source		SELECT workflow_uuid, start_date, end_date, state FROM klms.workflow_execution WHERE ontop_user()='admin'
+target		klms:execution/{workflow_uuid} a klms:WorkflowExecution ; dct:identifier {workflow_uuid}^^xsd:string ; dct:creator klms:user/{creator_user_id} ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string ; klms:workflowPackage klms:dataset/{wf_package_id} .
+source		SELECT workflow_uuid, creator_user_id, start_date, end_date, state, wf_package_id FROM klms.workflow_execution
 
 mappingId	STELAR-workflow-tags
 target		klms:execution/{workflow_uuid} klms:hasTags klms:kvpair/{workflow_uuid}/{key} . klms:kvpair/{workflow_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value} .
 source		SELECT workflow_uuid, key, value FROM klms.workflow_tag WHERE key NOT IN ('workflow_uuid','user')
 
 mappingId	STELAR-workflow-creator
-target		klms:execution/{workflow_uuid} dct:creator klms:user/{value} .
-source		SELECT workflow_uuid, value FROM klms.workflow_tag WHERE key='user' AND length(value)>0
+target		klms:execution/{workflow_uuid} dct:creator klms:user/{creator_user_id} .
+source		SELECT workflow_uuid, creator_user_id FROM klms.workflow_execution
 
 mappingId	STELAR-task-execution
-target		klms:execution/{task_uuid} a klms:TaskExecution ; dct:identifier {task_uuid}^^xsd:string ; dct:isPartOf klms:execution/{workflow_uuid} ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string .
-source		SELECT task_uuid, workflow_uuid, start_date, end_date, state FROM klms.task_execution
+target		klms:execution/{task_uuid} a klms:TaskExecution ; dct:identifier {task_uuid}^^xsd:string ; dct:creator klms:user/{creator_user_id} ; dct:isPartOf klms:execution/{workflow_uuid} ; dcat:startDate {start_date}^^xsd:dateTime ; dcat:endDate {end_date}^^xsd:dateTime ; klms:state {state}^^xsd:string ; klms:nextTask klms:execution/{next_task_uuid} .
+source		SELECT task_uuid, workflow_uuid, creator_user_id, start_date, end_date, state, next_task_uuid FROM klms.task_execution
 
-;mappingId	STELAR-task-parameters
-;target		klms:execution/{task_uuid} klms:hasParameters klms:kvpair/{task_uuid}/{key} . klms:kvpair/{task_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value} .
-;source		SELECT task_uuid, key, value FROM klms.parameters
+mappingId	STELAR-task-parameters
+target		klms:execution/{task_uuid} klms:hasParameters klms:kvpair/{task_uuid}/{key} . klms:kvpair/{task_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value}^^xsd:string .
+source		SELECT task_uuid, key, value::text as value FROM klms.parameters
 
 mappingId	STELAR-task-recommended-metrics
-target		klms:execution/{task_uuid} klms:hasMetrics klms:metric/{task_uuid}/{key} . klms:metric/{task_uuid}/{key} a klms:Metric; klms:{key} {value} ; dct:issued {issued}^^xsd:dateTime .
-source		SELECT task_uuid, key, value, issued FROM klms.metrics WHERE key IN ('absolute_error_score', 'max_error', 'mean_absolute_error', 'mean_squared_error', 'root_mean_squared_error', 'coefficient_determination', 'mean_absolute_percentage_error', 'mean_absolute_scaled_error', 'symmetric_mean_absolute_percentage_error', 'mean_directional_accuracy', 'accuracy', 'balanced_accuracy', 'precision', 'average_precision', 'recall', 'jaccard_score', 'f1_score', 'roc_auc_score', 'false_positive_rate', 'phi_coefficient', 'homogeneity_score', 'mutual_info_score', 'rand_score', 'completeness_score', 'fowlkes_mallows_score')
+target		klms:execution/{task_uuid} klms:hasMetrics klms:metric/{task_uuid}/{key} . klms:metric/{task_uuid}/{key} a klms:Metric; klms:{key} {value}^^xsd:string ; dct:issued {issued}^^xsd:dateTime .
+source		SELECT task_uuid, key, value::text as value, issued FROM klms.metrics WHERE key IN ('absolute_error_score', 'max_error', 'mean_absolute_error', 'mean_squared_error', 'root_mean_squared_error', 'coefficient_determination', 'mean_absolute_percentage_error', 'mean_absolute_scaled_error', 'symmetric_mean_absolute_percentage_error', 'mean_directional_accuracy', 'accuracy', 'balanced_accuracy', 'precision', 'average_precision', 'recall', 'jaccard_score', 'f1_score', 'roc_auc_score', 'false_positive_rate', 'phi_coefficient', 'homogeneity_score', 'mutual_info_score', 'rand_score', 'completeness_score', 'fowlkes_mallows_score')
 
 mappingId	STELAR-task-general-metrics
-target		klms:execution/{task_uuid} klms:hasMetrics klms:kvpair/{task_uuid}/{key} . klms:kvpair/{task_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value}; dct:issued {issued}^^xsd:dateTime .
-source		SELECT task_uuid, key, value, issued FROM klms.metrics
+target		klms:execution/{task_uuid} klms:hasMetrics klms:kvpair/{task_uuid}/{key} . klms:kvpair/{task_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value}^^xsd:string; dct:issued {issued}^^xsd:dateTime .
+source		SELECT task_uuid, key, value::text as value, issued FROM klms.metrics
+
+mappingId	STELAR-task-tool
+target		klms:execution/{task_uuid} klms:usesTool {value}^^xsd:string .
+source		SELECT task_uuid, value FROM klms.task_tag WHERE key = '__tool__'
+
+mappingId	STELAR-task-image
+target		klms:execution/{task_uuid} klms:usesImage {value}^^xsd:string .
+source		SELECT task_uuid, value FROM klms.task_tag WHERE key = '__image__'
 
 mappingId	STELAR-task-tags
 target		klms:execution/{task_uuid} klms:hasTags klms:kvpair/{task_uuid}/{key} . klms:kvpair/{task_uuid}/{key} a klms:KeyValuePair; klms:key {key}; klms:value {value} .
-source		SELECT task_uuid, key, value FROM klms.task_tag WHERE key NOT IN ('workflow_uuid','task_uuid','user','input','output')
+source		SELECT task_uuid, key, value FROM klms.task_tag WHERE key NOT IN ('workflow_uuid','task_uuid','user','input','output','__tool__','__image__')
 
 mappingId	STELAR-task-input
 target		klms:execution/{task_uuid} klms:hasInput klms:execution/{task_uuid}/input/{order_num} . klms:execution/{task_uuid}/input/{order_num} a klms:Artifact; klms:orderNum {order_num}; klms:input klms:resource/{resource_id} .
